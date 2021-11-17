@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/parcelService.iml" filepath="$PROJECT_DIR$/parcelService.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ParcelService.iml" filepath="$PROJECT_DIR$/ParcelService.iml" />
     </modules>
   </component>
 </project>
