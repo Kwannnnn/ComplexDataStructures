@@ -7,13 +7,12 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
 
 public record ClientParser(String filePath, String delimiter) {
 
-    public List<Client> getAllClients() {
-        var result = new ArrayList<Client>();
+    public HashMap<Long, Client> getAllClients() {
+        var result = new HashMap<Long, Client>();
         try {
             var bufferedReader = new BufferedReader(new FileReader(this.filePath));
 
@@ -34,7 +33,7 @@ public record ClientParser(String filePath, String delimiter) {
                         clientAddress
                 );
 
-                result.add(client);
+                result.put(Long.parseLong(lineValues[0]), client);
             }
         } catch (FileNotFoundException e) {
             throw new Error("No such file: " + this.filePath);

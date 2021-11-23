@@ -1,6 +1,9 @@
 import resource.ClientParser;
 import model.Client;
 import nl.saxion.app.SaxionApp;
+import resource.PackageParser;
+
+import java.util.Map;
 
 public class StartApplication implements Runnable {
 
@@ -15,8 +18,9 @@ public class StartApplication implements Runnable {
     @Override
     public void run() {
         var clients = new ClientParser(CLIENTS_FILE_PATH, DELIMITER).getAllClients();
-        for (Client client : clients) {
-            SaxionApp.printLine(client.toString());
+        var packages = new PackageParser(PACKAGES_FILE_PATH, DELIMITER).getAllPackages();
+        for (Map.Entry<Long, Client> entry : clients.entrySet()) {
+            SaxionApp.printLine(entry.getValue().toString());
         }
     }
 }
