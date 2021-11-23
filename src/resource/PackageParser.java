@@ -6,8 +6,8 @@ import java.io.*;
 import java.util.ArrayList;
 
 public class PackageParser {
-    private String filePath;
-    private String delimiter;
+    private final String filePath;
+    private final String delimiter;
 
     public PackageParser(String filePath, String delimiter) {
         this.filePath = filePath;

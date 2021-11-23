@@ -9,7 +9,14 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.HashMap;
 
-public record ClientParser(String filePath, String delimiter) {
+public class ClientParser {
+    private final String filePath;
+    private final String delimiter;
+
+    public ClientParser(String filePath, String delimiter) {
+        this.filePath = filePath;
+        this.delimiter = delimiter;
+    }
 
     public HashMap<Long, Client> getAllClients() {
         var result = new HashMap<Long, Client>();
