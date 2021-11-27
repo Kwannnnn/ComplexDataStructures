@@ -34,6 +34,14 @@ public class Parcel implements Comparable<Parcel> {
         return calculateDistanceFromDC(this.client.getAddress()) - calculateDistanceFromDC(parcel.client.getAddress());
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) return true;
+        if (obj == null || getClass() != obj.getClass()) return false;
+        Parcel anotherParcel = (Parcel) obj;
+        return this.id.equals(anotherParcel.id);
+    }
+
     /**
      * Calculates the Manhattan distance between an Address and the Distribution center (located at x: 375, y: 375)
      * @param address an Address
@@ -41,6 +49,10 @@ public class Parcel implements Comparable<Parcel> {
      */
     private int calculateDistanceFromDC(Address address) {
         return Math.abs((address.x() - 375)) + Math.abs((address.y() - 375));
+    }
+
+    public Long getId() {
+        return this.id;
     }
 
     public int getLength() {
@@ -53,6 +65,10 @@ public class Parcel implements Comparable<Parcel> {
 
     public int getHeight() {
         return this.height;
+    }
+
+    public ParcelStatus getParcelStatus() {
+        return this.parcelStatus;
     }
 
     @Override

@@ -3,5 +3,6 @@ package model;
 public enum ParcelStatus {
     DC,
     EN_ROUTE,
-    DELIVERED
+    DELIVERED,
+    NOT_FOUND
 }

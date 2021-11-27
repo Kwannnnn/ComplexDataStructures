@@ -3,11 +3,13 @@ package resource;
 import model.Address;
 import model.Client;
 import model.Parcel;
+import model.ParcelStatus;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
@@ -18,10 +20,12 @@ public class DataParser {
 
     private HashMap<Long, Client> clients;
     private PriorityQueue<Parcel> parcels;
+    private ArrayList<Parcel> parcelsList;
 
     public DataParser() {
         this.clients = new HashMap<>();
         this.parcels = new PriorityQueue<>();
+        this.parcelsList = new ArrayList<>();
     }
 
     public void readData() {
@@ -35,6 +39,39 @@ public class DataParser {
 
     public PriorityQueue<Parcel> getParcels() {
         return this.parcels;
+    }
+
+    /**
+     * Finds the status of a parcel by ID in a sequential manner.
+     * @param id the ID of the Parcel to look for
+     * @return the ParcelStatus if found, or ParcelStatus.NOT_FOUND if not found.
+     */
+    public ParcelStatus getParcelStatusByIDSequentially(Long id) {
+        for (Parcel parcel : this.parcelsList) {
+            if (parcel.getId().equals(id)) return parcel.getParcelStatus();
+        }
+
+        return ParcelStatus.NOT_FOUND;
+    }
+
+    /**
+     * Finds the status of a parcel by ID in a sequential manner.
+     * @param id the ID of the Parcel to look for
+     * @return the ParcelStatus if found, or ParcelStatus.NOT_FOUND if not found.
+     */
+    public ParcelStatus getParcelStatusByIDBinary(Long id) {
+        int begin = 0;
+        int end = parcelsList.size();
+
+        do {
+            int middle = (begin + end) / 2;
+            Long parcelID = parcelsList.get(middle).getId();
+            if (parcelID < id) begin = middle + 1;
+            else if (parcelID.equals(id)) return parcelsList.get(middle).getParcelStatus();
+            else end = middle - 1;
+        }  while (begin < end);
+
+        return ParcelStatus.NOT_FOUND;
     }
 
     /**
