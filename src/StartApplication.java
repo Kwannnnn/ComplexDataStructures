@@ -12,9 +12,12 @@ public class StartApplication implements Runnable {
         DataParser db = new DataParser();
         db.readData();
 
-        System.out.println("Parcel ID  ; (Client) Distance from DC ");
-        for (int i = 0; i < db.getParcels().size(); i++) {
-            System.out.println(db.getParcels().poll());
-        }
+        db.sortClientsByName();
+        System.out.println(db.getClientsList());
+
+//        System.out.println("Parcel ID  ; (Client) Distance from DC ");
+//        for (int i = 0; i < db.getParcels().size(); i++) {
+//            System.out.println(db.getParcels().poll());
+//        }
     }
 }

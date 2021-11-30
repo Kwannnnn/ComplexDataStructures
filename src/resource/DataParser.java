@@ -18,12 +18,14 @@ public class DataParser {
     private static final String PACKAGES_FILE_PATH = "Packages.csv";
     private static final String DELIMITER = ";";
 
-    private HashMap<Long, Client> clients;
-    private PriorityQueue<Parcel> parcels;
-    private ArrayList<Parcel> parcelsList;
+    private final HashMap<Long, Client> clients;
+    private final ArrayList<Client> clientsList;
+    private final PriorityQueue<Parcel> parcels;
+    private final ArrayList<Parcel> parcelsList;
 
     public DataParser() {
         this.clients = new HashMap<>();
+        this.clientsList = new ArrayList<>();
         this.parcels = new PriorityQueue<>();
         this.parcelsList = new ArrayList<>();
     }
@@ -33,20 +35,12 @@ public class DataParser {
         readParcels();
     }
 
-    public HashMap<Long, Client> getClients() {
-        return this.clients;
-    }
-
-    public PriorityQueue<Parcel> getParcels() {
-        return this.parcels;
-    }
-
     /**
      * Finds the status of a parcel by ID in a sequential manner.
      * @param id the ID of the Parcel to look for
      * @return the ParcelStatus if found, or ParcelStatus.NOT_FOUND if not found.
      */
-    public ParcelStatus getParcelStatusByIDSequentially(Long id) {
+    public ParcelStatus getParcelStatusByIDSequentially(ArrayList<Parcel> list, Long id) {
         for (Parcel parcel : this.parcelsList) {
             if (parcel.getId().equals(id)) return parcel.getParcelStatus();
         }
@@ -55,7 +49,7 @@ public class DataParser {
     }
 
     /**
-     * Finds the status of a parcel by ID in a sequential manner.
+     * Finds the status of a parcel by ID in a binary manner.
      * @param id the ID of the Parcel to look for
      * @return the ParcelStatus if found, or ParcelStatus.NOT_FOUND if not found.
      */
@@ -72,6 +66,26 @@ public class DataParser {
         }  while (begin < end);
 
         return ParcelStatus.NOT_FOUND;
+    }
+
+    public void sortClientsByName() {
+        Sorter.sort(clientsList);
+    }
+
+    public HashMap<Long, Client> getClients() {
+        return clients;
+    }
+
+    public ArrayList<Client> getClientsList() {
+        return clientsList;
+    }
+
+    public PriorityQueue<Parcel> getParcels() {
+        return parcels;
+    }
+
+    public ArrayList<Parcel> getParcelsList() {
+        return parcelsList;
     }
 
     /**
@@ -98,6 +112,7 @@ public class DataParser {
                 );
 
                 parcels.add(parcel);
+                parcelsList.add(parcel);
             }
         } catch (FileNotFoundException e) {
             throw new Error("No such file: " + PACKAGES_FILE_PATH);
@@ -128,6 +143,7 @@ public class DataParser {
                 );
 
                 this.clients.put(Long.parseLong(lineValues[0]), client);
+                this.clientsList.add(client);
             }
         } catch (FileNotFoundException e) {
             throw new Error("No such file: " + CLIENTS_FILE_PATH);

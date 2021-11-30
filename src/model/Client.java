@@ -1,6 +1,6 @@
 package model;
 
-public class Client {
+public class Client implements Comparable<Client> {
     private final Long id;
     private String name;
     private String initials;
@@ -23,7 +23,13 @@ public class Client {
 
     @Override
     public String toString() {
+        return name;
 //        return name + " " + address;
-        return "Client " + id;
+//        return "Client " + id;
+    }
+
+    @Override
+    public int compareTo(Client o) {
+        return this.name.compareTo(o.name);
     }
 }
