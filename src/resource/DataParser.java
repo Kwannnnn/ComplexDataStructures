@@ -35,39 +35,6 @@ public class DataParser {
         readParcels();
     }
 
-    /**
-     * Finds the status of a parcel by ID in a sequential manner.
-     * @param id the ID of the Parcel to look for
-     * @return the ParcelStatus if found, or ParcelStatus.NOT_FOUND if not found.
-     */
-    public ParcelStatus getParcelStatusByIDSequentially(ArrayList<Parcel> list, Long id) {
-        for (Parcel parcel : this.parcelsList) {
-            if (parcel.getId().equals(id)) return parcel.getParcelStatus();
-        }
-
-        return null;
-    }
-
-    /**
-     * Finds the status of a parcel by ID in a binary manner.
-     * @param id the ID of the Parcel to look for
-     * @return the ParcelStatus if found, or ParcelStatus.NOT_FOUND if not found.
-     */
-    public ParcelStatus getParcelStatusByIDBinary(Long id) {
-        int begin = 0;
-        int end = parcelsList.size();
-
-        do {
-            int middle = (begin + end) / 2;
-            Long parcelID = parcelsList.get(middle).getId();
-            if (parcelID < id) begin = middle + 1;
-            else if (parcelID.equals(id)) return parcelsList.get(middle).getParcelStatus();
-            else end = middle - 1;
-        }  while (begin < end);
-
-        return null;
-    }
-
     public void sortClientsByName() {
         Sorter.sort(clientsList);
     }
