@@ -5,13 +5,25 @@ import java.util.Random;
 
 public class Sorter {
 
+    /**
+     * Sorts a certain range of an array list.
+     * @param list the list to be sorted
+     * @param begin the beginning of the range to be sorted
+     * @param end the end of the range to be sorted
+     * @param <T> the type of the data stored in the array list
+     */
     public static <T extends Comparable<T>> void sort(ArrayList<T> list, int begin, int end) {
-        if(list.size() <= 10) insertionSort(list);
+        if(end - begin <= 10) insertionSort(list);
         else {
             quickSort(list, begin, end);
         }
     }
 
+    /**
+     * Sorts an array list. If the size of the list is smaller than 10, the list will be sorted using insertion sort.
+     * @param list the list to be sorted
+     * @param <T> the type of the data stored in the array list
+     */
     public static <T extends Comparable<T>> void sort(ArrayList<T> list) {
         int size = list.size();
         if(size <= 10) insertionSort(list);
@@ -20,6 +32,11 @@ public class Sorter {
         }
     }
 
+    /**
+     * Performs insertion sort on an array list.
+     * @param list the list to be sorted
+     * @param <T> the type of the data stored in the array list
+     */
     private static <T extends Comparable<T>> void insertionSort(ArrayList<T> list) {
         int index = 1;
         while (index < list.size()) {

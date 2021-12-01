@@ -45,7 +45,7 @@ public class DataParser {
             if (parcel.getId().equals(id)) return parcel.getParcelStatus();
         }
 
-        return ParcelStatus.NOT_FOUND;
+        return null;
     }
 
     /**
@@ -65,7 +65,7 @@ public class DataParser {
             else end = middle - 1;
         }  while (begin < end);
 
-        return ParcelStatus.NOT_FOUND;
+        return null;
     }
 
     public void sortClientsByName() {
