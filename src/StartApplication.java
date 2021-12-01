@@ -1,5 +1,5 @@
 import nl.saxion.app.SaxionApp;
-import resource.DataParser;
+import resource.DataManager;
 
 public class StartApplication implements Runnable {
 
@@ -9,11 +9,11 @@ public class StartApplication implements Runnable {
 
     @Override
     public void run() {
-        DataParser db = new DataParser();
+        DataManager db = new DataManager();
         db.readData();
 
         db.sortClientsByName();
-        System.out.println(db.getClientsList());
+        System.out.println(db.getClients());
 
 //        System.out.println("Parcel ID  ; (Client) Distance from DC ");
 //        for (int i = 0; i < db.getParcels().size(); i++) {

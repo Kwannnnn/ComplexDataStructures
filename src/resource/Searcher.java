@@ -27,7 +27,7 @@ public class Searcher {
      * @param id the ID of the Parcel to look for
      * @return the ParcelStatus if found, or null if not found.
      */
-    public ParcelStatus getParcelStatusByIDBinary(ArrayList<Parcel> parcels, Long id) {
+    public static ParcelStatus getParcelStatusByIDBinary(ArrayList<Parcel> parcels, Long id) {
         int begin = 0;
         int end = parcels.size();
 

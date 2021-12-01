@@ -1,5 +1,7 @@
 package resource;
 
+import database.ClientsDB;
+import database.ParcelsDB;
 import model.Address;
 import model.Client;
 import model.Parcel;
@@ -11,23 +13,21 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.PriorityQueue;
 
-public class DataParser {
+public class DataManager {
     private static final String CLIENTS_FILE_PATH = "Clients.csv";
     private static final String PACKAGES_FILE_PATH = "Packages.csv";
     private static final String DELIMITER = ";";
 
-    private final HashMap<Long, Client> clients;
-    private final ArrayList<Client> clientsList;
-    private final PriorityQueue<Parcel> parcels;
-    private final ArrayList<Parcel> parcelsList;
+    private final ClientsDB clientsDB;
+    private final ParcelsDB parcelsDB;
 
-    public DataParser() {
-        this.clients = new HashMap<>();
-        this.clientsList = new ArrayList<>();
-        this.parcels = new PriorityQueue<>();
-        this.parcelsList = new ArrayList<>();
+    HashMap<String, ArrayList<Parcel>> parcelsPerDay;
+
+    public DataManager() {
+        this.clientsDB = new ClientsDB();
+        this.parcelsDB = new ParcelsDB();
+        readData();
     }
 
     public void readData() {
@@ -36,23 +36,19 @@ public class DataParser {
     }
 
     public void sortClientsByName() {
-        Sorter.sort(clientsList);
+        this.clientsDB.sortClientsByName();
     }
 
-    public HashMap<Long, Client> getClients() {
-        return clients;
+    public ArrayList<Client> getClients() {
+        return this.clientsDB.getClientsList();
     }
 
-    public ArrayList<Client> getClientsList() {
-        return clientsList;
+    public ParcelStatus getParcelStatusByIDSequentially(ArrayList<Parcel> parcels, Long id) {
+        return Searcher.getParcelStatusByIDSequentially(parcels, id);
     }
 
-    public PriorityQueue<Parcel> getParcels() {
-        return parcels;
-    }
-
-    public ArrayList<Parcel> getParcelsList() {
-        return parcelsList;
+    public ParcelStatus getParcelStatusByIDBinary(ArrayList<Parcel> parcels, Long id) {
+        return Searcher.getParcelStatusByIDBinary(parcels, id);
     }
 
     /**
@@ -75,11 +71,10 @@ public class DataParser {
                         Integer.parseInt(lineValues[3]),
                         Double.parseDouble(lineValues[4]),
                         lineValues[5],
-                        this.clients.get(Long.parseLong(lineValues[6]))
+                        this.clientsDB.getClientByID(Long.parseLong(lineValues[6]))
                 );
 
-                parcels.add(parcel);
-                parcelsList.add(parcel);
+                parcelsDB.addParcel(parcel);
             }
         } catch (FileNotFoundException e) {
             throw new Error("No such file: " + PACKAGES_FILE_PATH);
@@ -109,8 +104,7 @@ public class DataParser {
                         clientAddress
                 );
 
-                this.clients.put(Long.parseLong(lineValues[0]), client);
-                this.clientsList.add(client);
+                this.clientsDB.addClient(client);
             }
         } catch (FileNotFoundException e) {
             throw new Error("No such file: " + CLIENTS_FILE_PATH);
