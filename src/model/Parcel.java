@@ -23,15 +23,14 @@ public class Parcel implements Comparable<Parcel> {
     }
 
     /**
-     * Compares two parcels by the distance from the distribution center of the client's address.
-     * @param parcel a Parcel to compare to
-     * @return -1 if the distance from DC is smaller than the distance for the other parcel
-     * 0 if the distances of both parcels are equal
-     * 1 if the distance from DC is larger than the distance of the other parcel
+     * Compares two parcels by the biggest side measurement.
+     * @param parcel the Parcel to be compared
+     * @return a negative integer, zero, or a positive integer as the first argument is less than, equal to, or
+     * greater than the second.
      */
     @Override
     public int compareTo(Parcel parcel) {
-        return calculateDistanceFromDC(this.client.getAddress()) - calculateDistanceFromDC(parcel.client.getAddress());
+        return Math.max(this.length, this.breadth) - Math.max(parcel.length, parcel.breadth);
     }
 
     @Override
@@ -40,15 +39,6 @@ public class Parcel implements Comparable<Parcel> {
         if (obj == null || getClass() != obj.getClass()) return false;
         Parcel anotherParcel = (Parcel) obj;
         return this.id.equals(anotherParcel.id);
-    }
-
-    /**
-     * Calculates the Manhattan distance between an Address and the Distribution center (located at x: 375, y: 375)
-     * @param address an Address
-     * @return a positive integer the distance
-     */
-    private int calculateDistanceFromDC(Address address) {
-        return Math.abs((address.x() - 375)) + Math.abs((address.y() - 375));
     }
 
     public Long getId() {
@@ -67,6 +57,14 @@ public class Parcel implements Comparable<Parcel> {
         return this.height;
     }
 
+    public String getEntryDate() {
+        return this.entryDate;
+    }
+
+    public Client getClient() {
+        return this.client;
+    }
+
     public ParcelStatus getParcelStatus() {
         return this.parcelStatus;
     }
@@ -77,6 +75,6 @@ public class Parcel implements Comparable<Parcel> {
 //                " (" + client.getAddress().x() + "," + client.getAddress().y() + "), " +
 //                calculateDistanceFromDC(this.client.getAddress());
         return "Parcel " + id +
-                " (" + client.getId() + ") " + calculateDistanceFromDC(this.client.getAddress());
+                " (" + client.getId() + ") ";
     }
 }
