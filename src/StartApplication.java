@@ -1,5 +1,6 @@
+import database.DataManager;
+import database.Database;
 import nl.saxion.app.SaxionApp;
-import resource.DataManager;
 
 public class StartApplication implements Runnable {
 
@@ -9,15 +10,16 @@ public class StartApplication implements Runnable {
 
     @Override
     public void run() {
-        DataManager db = new DataManager();
-        db.readData();
+        DataManager manager = new DataManager();
 
-        db.sortClientsByName();
-        System.out.println(db.getClients());
+//        db.sortClientsByName();
+        System.out.println(manager.getClients());
 
-//        System.out.println("Parcel ID  ; (Client) Distance from DC ");
-//        for (int i = 0; i < db.getParcels().size(); i++) {
-//            System.out.println(db.getParcels().poll());
+//        System.out.println("Parcel ID  ; (Client) ");
+//        var route = db.getRouteForADay("1-12-2021");
+//        System.out.println(route);
+//        for (int i = 0; i < db.getClientsList().size(); i++) {
+//            System.out.println(route.poll());
 //        }
     }
 }
