@@ -3,7 +3,7 @@ package database;
 import model.Client;
 import model.Parcel;
 import model.ParcelStatus;
-import resource.Searcher;
+import util.Searcher;
 
 import java.util.ArrayList;
 import java.util.PriorityQueue;

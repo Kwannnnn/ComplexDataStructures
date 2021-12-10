@@ -2,7 +2,7 @@ package database;
 
 import model.Address;
 import model.Client;
-import resource.Sorter;
+import util.Sorter;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

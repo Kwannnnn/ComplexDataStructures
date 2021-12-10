@@ -1,4 +1,7 @@
-package model;
+package model.comparators;
+
+import model.Address;
+import model.Parcel;
 
 import java.util.Comparator;
 

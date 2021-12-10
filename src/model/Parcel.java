@@ -57,6 +57,10 @@ public class Parcel implements Comparable<Parcel> {
         return this.height;
     }
 
+    public int getMinArea() {
+        return Math.min(Math.min(this.height * this.breadth, this.height * this.length), this.length * this.breadth);
+    }
+
     public String getEntryDate() {
         return this.entryDate;
     }

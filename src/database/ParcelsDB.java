@@ -1,6 +1,6 @@
 package database;
 
-import model.DistanceComparator;
+import model.comparators.DistanceComparator;
 import model.Parcel;
 
 import java.io.BufferedReader;

@@ -1,4 +1,4 @@
-package resource;
+package util;
 
 import model.Parcel;
 import model.ParcelStatus;
@@ -6,6 +6,9 @@ import model.ParcelStatus;
 import java.util.ArrayList;
 
 public class Searcher {
+    private Searcher() {
+
+    }
 
     /**
      * Finds the status of a parcel by ID in a sequential manner.
