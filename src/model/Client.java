@@ -28,8 +28,14 @@ public class Client implements Comparable<Client> {
 //        return "Client " + id;
     }
 
+    /**
+     * Compares two clients by their names alphabetically.
+     * @param c the client to be compared to
+     * @return a negative integer, zero, or a positive integer representing whether this instance is less than,
+     * equal to, or greater than the given one.
+     */
     @Override
-    public int compareTo(Client o) {
-        return this.name.compareTo(o.name);
+    public int compareTo(Client c) {
+        return this.name.compareTo(c.name);
     }
 }

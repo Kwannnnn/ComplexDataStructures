@@ -11,6 +11,9 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * This class acts as a database that stores data about clients for the delivery service.
+ */
 public class ClientsDB {
     private static final String CLIENTS_FILE_PATH = "Clients.csv";
 
@@ -40,6 +43,11 @@ public class ClientsDB {
         return this.clientsList;
     }
 
+    /**
+     * Reads the Clients from the Clients.csv into an ArrayList and a HashMap, where the key of the HashMap is the
+     * client's ID and the value a Client object. The use of these 2 different data structures is to facilitate different
+     * usage and algorithm implementations.
+     */
     private void readClients() {
         try {
             var bufferedReader = new BufferedReader(new FileReader(CLIENTS_FILE_PATH));

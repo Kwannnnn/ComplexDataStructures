@@ -11,8 +11,8 @@ public class DistanceComparator implements Comparator<Parcel> {
      * Compares two parcels by the distance from the distribution center of the client's address.
      * @param p1 the first Parcel to be compared
      * @param p2 the second Parcel to be compared
-     * @return a negative integer, zero, or a positive integer as the first argument is less than, equal to, or
-     * greater than the second.
+     * @return a negative integer, zero, or a positive integer indicating whether the first argument is less than, equal
+     * to, or greater than the second.
      */
     @Override
     public int compare(Parcel p1, Parcel p2) {

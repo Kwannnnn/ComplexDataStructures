@@ -11,6 +11,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
 
+/**
+ * This class acts as a database that stores data about parcels for the delivery service.
+ */
 public class ParcelsDB {
     private static final String PACKAGES_FILE_PATH = "Packages.csv";
 
@@ -43,6 +46,7 @@ public class ParcelsDB {
     /**
      * Reads the Parcels from the Packages.csv into a PriorityQueue, where the priority of parcels is determined by the
      * distance from the distribution center. (the further from the DC, the further back in the queue)
+     * TODO: explain routesPerDay Hashmap
      */
     private void readParcels() {
         try {

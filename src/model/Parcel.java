@@ -25,8 +25,8 @@ public class Parcel implements Comparable<Parcel> {
     /**
      * Compares two parcels by the biggest side measurement.
      * @param parcel the Parcel to be compared
-     * @return a negative integer, zero, or a positive integer as the first argument is less than, equal to, or
-     * greater than the second.
+     * @return a negative integer, zero, or a positive integer representing whether this instance is less than,
+     * equal to, or greater than the given one.
      */
     @Override
     public int compareTo(Parcel parcel) {
