@@ -64,7 +64,7 @@ public class ParcelsDB {
                         Integer.parseInt(lineValues[3]),
                         Double.parseDouble(lineValues[4]),
                         lineValues[5],
-                        Database.getInstance().getClientsDB().getClientByID(Long.parseLong(lineValues[6]))
+                        DataManager.getInstance().getClientsDB().getClientByID(Long.parseLong(lineValues[6]))
                 );
 
                 addParcel(parcel);

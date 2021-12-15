@@ -1,5 +1,7 @@
 package model;
 
+import util.packing.Node;
+
 public class Parcel implements Comparable<Parcel> {
     private final Long id;
     private int length;
@@ -10,8 +12,11 @@ public class Parcel implements Comparable<Parcel> {
     private ParcelStatus parcelStatus;
     private final Client client;
 
+
     public Parcel(Long id, int length, int breadth, int height, double weight, String entryDate,
                   Client client) {
+        // use breadth and length for now
+//        super("Parcel id: " + id, breadth, length);
         this.id = id;
         this.length = length;
         this.breadth = breadth;

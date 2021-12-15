@@ -3,7 +3,7 @@ package util;
 import model.Parcel;
 import model.ParcelStatus;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Searcher {
     private Searcher() {
@@ -16,7 +16,7 @@ public class Searcher {
      * @param id the ID of the Parcel to look for
      * @return the ParcelStatus if found, or null if not found.
      */
-    public static ParcelStatus getParcelStatusByIDSequentially(ArrayList<Parcel> parcels, Long id) {
+    public static ParcelStatus getParcelStatusByIDSequentially(List<Parcel> parcels, Long id) {
         for (Parcel parcel : parcels) {
             if (parcel.getId().equals(id)) return parcel.getParcelStatus();
         }
@@ -30,7 +30,7 @@ public class Searcher {
      * @param id the ID of the Parcel to look for
      * @return the ParcelStatus if found, or null if not found.
      */
-    public static ParcelStatus getParcelStatusByIDBinary(ArrayList<Parcel> parcels, Long id) {
+    public static ParcelStatus getParcelStatusByIDBinary(List<Parcel> parcels, Long id) {
         int begin = 0;
         int end = parcels.size();
 

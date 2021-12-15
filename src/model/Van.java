@@ -19,6 +19,7 @@ public class Van {
         this.parcels = new Stack<>();
     }
 
+    //TODO: problemo
     /**
      * Check whether a parcel can fit into the van.
      * @param parcel the parcel to check
@@ -45,5 +46,13 @@ public class Van {
     public void deliverParcel() {
         var parcel = this.parcels.pop();
         this.availableArea += parcel.getLength() * parcel.getBreadth();
+    }
+
+    public int getBreadth() {
+        return breadth;
+    }
+
+    public int getHeight() {
+        return height;
     }
 }

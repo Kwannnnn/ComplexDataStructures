@@ -1,5 +1,4 @@
 import database.DataManager;
-import database.Database;
 import nl.saxion.app.SaxionApp;
 
 public class StartApplication implements Runnable {
@@ -10,7 +9,7 @@ public class StartApplication implements Runnable {
 
     @Override
     public void run() {
-        DataManager manager = new DataManager();
+        DataManager manager = DataManager.getInstance();
 
 //        db.sortClientsByName();
         System.out.println(manager.getClients());
