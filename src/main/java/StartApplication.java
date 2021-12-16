@@ -1,6 +1,8 @@
 import database.DataManager;
 import nl.saxion.app.SaxionApp;
 
+import java.io.IOException;
+
 public class StartApplication implements Runnable {
 
     public static void main(String[] args) {
@@ -10,7 +12,11 @@ public class StartApplication implements Runnable {
     @Override
     public void run() {
         DataManager manager = DataManager.getInstance();
-        manager.init();
+        try {
+            manager.init();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
 //        db.sortClientsByName();
         System.out.println(manager.getClients());

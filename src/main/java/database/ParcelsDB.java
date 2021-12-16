@@ -16,7 +16,6 @@ import java.util.PriorityQueue;
  * This class acts as a database that stores data about parcels for the delivery service.
  */
 public class ParcelsDB {
-    private static final String PACKAGES_FILE_PATH = "Packages.csv";
 
     private final HashMap<String, PriorityQueue<Parcel>> routesPerDay;
     private final ArrayList<Parcel> parcelsList;
@@ -24,7 +23,7 @@ public class ParcelsDB {
     public ParcelsDB() {
         this.routesPerDay = new HashMap<>();
         this.parcelsList = new ArrayList<>();
-        readParcels();
+//        readParcels();
     }
 
     public void addParcel(Parcel parcel) {
@@ -49,35 +48,35 @@ public class ParcelsDB {
      * distance from the distribution center. (the further from the DC, the further back in the queue)
      * TODO: explain routesPerDay Hashmap
      */
-    private void readParcels() {
-        try {
-            URL printResource = getClass().getResource("/" + PACKAGES_FILE_PATH);
-            if (printResource == null) {
-                throw new Error("Warning: Could not find " + PACKAGES_FILE_PATH + " file!");
-            }
-            var bufferedReader = new BufferedReader(new FileReader(printResource.getFile()));
-
-            String currentLine = bufferedReader.readLine(); // Skip header line
-            String[] lineValues;
-            while ((currentLine = bufferedReader.readLine()) != null) {
-                lineValues = currentLine.split(";");
-
-                var parcel = new Parcel(
-                        Long.parseLong(lineValues[0]),
-                        Integer.parseInt(lineValues[1]),
-                        Integer.parseInt(lineValues[2]),
-                        Integer.parseInt(lineValues[3]),
-                        Double.parseDouble(lineValues[4]),
-                        lineValues[5],
-                        DataManager.getInstance().getClientsDB().getClientByID(Long.parseLong(lineValues[6]))
-                );
-
-                addParcel(parcel);
-            }
-        } catch (FileNotFoundException e) {
-            throw new Error("No such file: " + PACKAGES_FILE_PATH);
-        } catch (IOException e) {
-            throw new Error("I/O error: " + e);
-        }
-    }
+//    private void readParcels() {
+//        try {
+//            URL printResource = getClass().getResource("/" + PACKAGES_FILE_PATH);
+//            if (printResource == null) {
+//                throw new Error("Warning: Could not find " + PACKAGES_FILE_PATH + " file!");
+//            }
+//            var bufferedReader = new BufferedReader(new FileReader(printResource.getFile()));
+//
+//            String currentLine = bufferedReader.readLine(); // Skip header line
+//            String[] lineValues;
+//            while ((currentLine = bufferedReader.readLine()) != null) {
+//                lineValues = currentLine.split(";");
+//
+//                var parcel = new Parcel(
+//                        Long.parseLong(lineValues[0]),
+//                        Integer.parseInt(lineValues[1]),
+//                        Integer.parseInt(lineValues[2]),
+//                        Integer.parseInt(lineValues[3]),
+//                        Double.parseDouble(lineValues[4]),
+//                        lineValues[5],
+//                        DataManager.getInstance().getClientsDB().getClientByID(Long.parseLong(lineValues[6]))
+//                );
+//
+//                addParcel(parcel);
+//            }
+//        } catch (FileNotFoundException e) {
+//            throw new Error("No such file: " + PACKAGES_FILE_PATH);
+//        } catch (IOException e) {
+//            throw new Error("I/O error: " + e);
+//        }
+//    }
 }

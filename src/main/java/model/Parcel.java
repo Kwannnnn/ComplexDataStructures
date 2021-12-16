@@ -1,7 +1,5 @@
 package model;
 
-import util.packing.Node;
-
 public class Parcel implements Comparable<Parcel> {
     private final Long id;
     private int length;
