@@ -7,6 +7,7 @@ import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.PriorityQueue;
@@ -50,7 +51,11 @@ public class ParcelsDB {
      */
     private void readParcels() {
         try {
-            var bufferedReader = new BufferedReader(new FileReader(PACKAGES_FILE_PATH));
+            URL printResource = getClass().getResource("/" + PACKAGES_FILE_PATH);
+            if (printResource == null) {
+                throw new Error("Warning: Could not find " + PACKAGES_FILE_PATH + " file!");
+            }
+            var bufferedReader = new BufferedReader(new FileReader(printResource.getFile()));
 
             String currentLine = bufferedReader.readLine(); // Skip header line
             String[] lineValues;

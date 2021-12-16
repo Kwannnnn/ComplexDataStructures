@@ -17,8 +17,9 @@ public class Searcher {
      * @return the ParcelStatus if found, or null if not found.
      */
     public static ParcelStatus getParcelStatusByIDSequentially(List<Parcel> parcels, Long id) {
-        for (Parcel parcel : parcels) {
-            if (parcel.getId().equals(id)) return parcel.getParcelStatus();
+        for (var parcel : parcels) {
+            if (parcel.getId().equals(id))
+                return parcel.getParcelStatus();
         }
 
         return null;

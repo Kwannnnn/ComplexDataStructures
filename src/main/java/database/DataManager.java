@@ -15,8 +15,6 @@ public class DataManager {
 
 
     private DataManager() {
-        this.clientsDB = new ClientsDB();
-        this.parcelsDB = new ParcelsDB();
     }
 
     public static DataManager getInstance() {
@@ -25,6 +23,11 @@ public class DataManager {
         }
 
         return instance;
+    }
+
+    public void init() {
+        this.clientsDB = new ClientsDB();
+        this.parcelsDB = new ParcelsDB();
     }
 
     public void sortClientsByName() {

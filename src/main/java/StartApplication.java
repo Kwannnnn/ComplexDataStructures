@@ -10,6 +10,7 @@ public class StartApplication implements Runnable {
     @Override
     public void run() {
         DataManager manager = DataManager.getInstance();
+        manager.init();
 
 //        db.sortClientsByName();
         System.out.println(manager.getClients());

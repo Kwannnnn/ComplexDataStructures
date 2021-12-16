@@ -4,10 +4,8 @@ import model.Address;
 import model.Client;
 import util.Sorter;
 
-import java.io.BufferedReader;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.IOException;
+import java.io.*;
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.HashMap;
 
@@ -50,11 +48,15 @@ public class ClientsDB {
      */
     private void readClients() {
         try {
-            var bufferedReader = new BufferedReader(new FileReader(CLIENTS_FILE_PATH));
+            var in = getClass().getResourceAsStream("/" + CLIENTS_FILE_PATH);
+            if (in == null) {
+                throw new Error("Warning: Could not find " + CLIENTS_FILE_PATH + " file!");
+            }
+            var reader = new BufferedReader(new InputStreamReader(in));
 
-            String currentLine = bufferedReader.readLine(); // Skip header line
+            String currentLine = reader.readLine(); // Skip header line
             String[] lineValues;
-            while ((currentLine = bufferedReader.readLine()) != null) {
+            while ((currentLine = reader.readLine()) != null) {
                 lineValues = currentLine.split(";");
 
                 var clientAddress = new Address(
