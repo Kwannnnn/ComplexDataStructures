@@ -1,9 +1,21 @@
-import database.DataManager;
+import nl.saxion.cds.DataManager;
 import nl.saxion.app.SaxionApp;
+import nl.saxion.cds.SystemFacade;
 
 import java.io.IOException;
+import java.util.InputMismatchException;
 
 public class StartApplication implements Runnable {
+    private SystemFacade facade;
+
+    public StartApplication() {
+        try {
+            this.facade = new SystemFacade(new DataManager());
+        } catch (IOException e) {
+            System.err.println(e.getMessage());
+            System.exit(1);
+        }
+    }
 
     public static void main(String[] args) {
         SaxionApp.start(new StartApplication());
@@ -11,15 +23,13 @@ public class StartApplication implements Runnable {
 
     @Override
     public void run() {
-        DataManager manager = DataManager.getInstance();
-        try {
-            manager.init();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        int choice;
+        showMenu();
+        choice = inputOption(2);
+        System.out.println(this.facade.getParcelStatus("13580"));
 
 //        db.sortClientsByName();
-        System.out.println(manager.getClients());
+//        System.out.println(manager.getClients());
 
 //        System.out.println("Parcel ID  ; (Client) ");
 //        var route = db.getRouteForADay("1-12-2021");
@@ -27,5 +37,20 @@ public class StartApplication implements Runnable {
 //        for (int i = 0; i < db.getClientsList().size(); i++) {
 //            System.out.println(route.poll());
 //        }
+    }
+
+    private void showMenu() {
+        SaxionApp.printLine("1: Find the status of a parcel");
+        SaxionApp.printLine("2: Find the top 10 recipients of a month");
+    }
+
+    private int inputOption(int max) {
+        int choice;
+        do {
+            SaxionApp.printLine("Please select an option: ");
+            choice = SaxionApp.readInt();
+        } while (choice <= 0 || choice > max);
+
+        return choice;
     }
 }
