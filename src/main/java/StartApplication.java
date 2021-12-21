@@ -3,14 +3,13 @@ import nl.saxion.app.SaxionApp;
 import nl.saxion.cds.SystemFacade;
 
 import java.io.IOException;
-import java.util.InputMismatchException;
 
 public class StartApplication implements Runnable {
     private SystemFacade facade;
 
     public StartApplication() {
         try {
-            this.facade = new SystemFacade(new DataManager());
+            this.facade = new SystemFacade();
         } catch (IOException e) {
             System.err.println(e.getMessage());
             System.exit(1);
@@ -23,10 +22,12 @@ public class StartApplication implements Runnable {
 
     @Override
     public void run() {
-        int choice;
-        showMenu();
-        choice = inputOption(2);
-        System.out.println(this.facade.getParcelStatus("13580"));
+//        int choice;
+//        showMenu();
+//        choice = inputOption(2);
+//        System.out.println(this.facade.getParcelStatus("13580"));
+
+        System.out.println(this.facade.getTop10Recipients());
 
 //        db.sortClientsByName();
 //        System.out.println(manager.getClients());

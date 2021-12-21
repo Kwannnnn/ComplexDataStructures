@@ -3,11 +3,29 @@ package nl.saxion.cds.util;
 import nl.saxion.cds.parcel.Parcel;
 import nl.saxion.cds.parcel.ParcelStatus;
 
-import java.util.List;
+import java.util.*;
 
 public class Searcher {
     private Searcher() {
 
+    }
+
+    public static <T extends Comparable<T>> PriorityQueue<T> findTopK(Collection<T> list, int k, Comparator<T> comparator) {
+        var priorityQueue = new PriorityQueue<T>();
+        for (var element : list) {
+            if (priorityQueue.size() < k) {
+                priorityQueue.add(element);
+            } else {
+                assert priorityQueue.peek() != null;
+                // smallest element of the priority queue < the current element of the list
+                if (comparator.compare(priorityQueue.peek(), element) < 0) {
+                    priorityQueue.poll();
+                    priorityQueue.add(element);
+                }
+            }
+        }
+
+        return priorityQueue;
     }
 
     /**

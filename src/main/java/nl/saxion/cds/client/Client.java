@@ -21,6 +21,7 @@ public class Client implements Comparable<Client> {
         return id;
     }
 
+
     @Override
     public String toString() {
         return name;

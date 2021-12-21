@@ -8,6 +8,7 @@ import nl.saxion.cds.client.ClientsCsvLoader;
 import nl.saxion.cds.parcel.ParcelsCsvLoader;
 
 import java.io.IOException;
+import java.util.List;
 
 public class SystemFacade {
     private static final String PACKAGES_FILENAME = "Packages.csv";
@@ -19,8 +20,8 @@ public class SystemFacade {
     private final ParcelService parcelService;
     private final ClientService clientService;
 
-    public SystemFacade(DataManager dataManager) throws IOException {
-        this.dataManager = dataManager;
+    public SystemFacade() throws IOException {
+        this.dataManager = new DataManager();
         this.clientService = new ClientService(this.dataManager.getClientDAO());
         this.parcelService = new ParcelService(this.dataManager.getParcelDAO());
         this.createClientService = new CreateClientService(this.dataManager.getClientDAO());
@@ -35,5 +36,9 @@ public class SystemFacade {
 
     public String getParcelStatus(String id) {
         return this.parcelService.getParcelStatus(id);
+    }
+
+    public List<String> getTop10Recipients() {
+        return this.clientService.getTop10Recipients(this.dataManager.getParcelDAO().getParcelsPerCustomer());
     }
 }
