@@ -1,6 +1,7 @@
-package nl.saxion.cds.parcel;
+package nl.saxion.cds.io;
 
-import nl.saxion.cds.util.io.CsvFileLoader;
+import nl.saxion.cds.io.CsvFileLoader;
+import nl.saxion.cds.parcel.CreateParcelService;
 
 public class ParcelsCsvLoader extends CsvFileLoader {
     private final CreateParcelService service;

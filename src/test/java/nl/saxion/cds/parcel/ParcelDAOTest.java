@@ -1,51 +1,58 @@
 package nl.saxion.cds.parcel;
 
-import nl.saxion.cds.client.ClientDAO;
-import nl.saxion.cds.parcel.CreateParcelService;
-import nl.saxion.cds.parcel.Parcel;
-import nl.saxion.cds.parcel.ParcelDAO;
-import nl.saxion.cds.parcel.ParcelsCsvLoader;
+import nl.saxion.cds.client.Address;
+import nl.saxion.cds.client.Client;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
-import java.io.IOException;
-
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParcelDAOTest {
-    private static final String PARCELS_FILENAME = "Packages.csv";
+    private static final Client CLIENT_1 = new Client(1L, "John Doe", "J.D.", new Address(1, 1));
+    private static final Client CLIENT_2 = new Client(2L, "Jane Doe", "J.D.", new Address(300, 300));
+
     private ParcelDAO underTest;
-    private ClientDAO clientDAO;
 
     @BeforeEach
     void setUp() {
         this.underTest = new ParcelDAO();
-        this.clientDAO = new ClientDAO();
-        try {
-            new ParcelsCsvLoader(PARCELS_FILENAME, new CreateParcelService(this.clientDAO, this.underTest)).loadFile();
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+    }
+
+    @Test
+    @DisplayName("save() - Save a parcel")
+    void saveAValidParcel() {
+        // given
+        var parcel = new Parcel(1L, 1, 1, 1, 1, "19-12-2021", CLIENT_1);
+        // when
+        this.underTest.save(parcel);
+        // then
+        assertNotNull(this.underTest.get(parcel.getId()));
     }
 
     @Test
     @DisplayName("get() - Existing parcel")
     void getExistingParcel() {
+        // Create an existing parcel
+        var parcel = new Parcel(1337L, 1, 1, 1, 1, "19-12-2021", CLIENT_1);
+        this.underTest.save(parcel);
+        assertNotNull(this.underTest.get(parcel.getId()));
+
         // given
-        var id = 13582L;
+        var id = 1337L;
         // when
-        var parcel = underTest.get(id);
+        var parcelToGet = this.underTest.get(id);
         // then
-        assertNotNull(parcel);
-        assertEquals(id, parcel.getId());
+        assertNotNull(parcelToGet);
+        assertEquals(parcel, parcelToGet);
     }
 
     @Test
     @DisplayName("get() - Non-existing parcel")
     void getNonExistingParcel() {
         // given
-        var id = 1L;
+        var id = 1337L;
         // when
         var parcel = underTest.get(id);
         // then
@@ -53,18 +60,28 @@ class ParcelDAOTest {
     }
 
     @Test
-    void getAll() {
-
+    @DisplayName("getAll() - Empty data object")
+    void getAllWhenDAOIsEmpty() {
+        // when
+        var parcels = this.underTest.getAll();
+        // then
+        assertEquals(0, parcels.size());
     }
 
     @Test
-    @DisplayName("save() - Save a parcel")
-    void save() {
-        // given
-        var parcel = new Parcel(1L, 1, 1, 1, 1, "19-12-2021", clientDAO.get(235001L));
+    @DisplayName("getAll() - Non-empty data object")
+    void getAll() {
+        // Create a couple existing parcel
+        var parcel1 = new Parcel(1337L, 1, 1, 1, 1, "19-12-2021", CLIENT_1);
+        var parcel2 = new Parcel(1338L, 2, 2, 2, 2, "20-12-2021", CLIENT_2);
+        this.underTest.save(parcel1);
+        this.underTest.save(parcel2);
+        assertNotNull(this.underTest.get(parcel1.getId()));
+        assertNotNull(this.underTest.get(parcel2.getId()));
+
         // when
-        this.underTest.save(parcel);
+        var parcels = this.underTest.getAll();
         // then
-        assertNotNull(this.underTest.get(parcel.getId()));
+        assertEquals(2, parcels.size());
     }
 }

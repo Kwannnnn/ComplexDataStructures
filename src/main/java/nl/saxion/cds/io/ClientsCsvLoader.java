@@ -1,6 +1,7 @@
-package nl.saxion.cds.client;
+package nl.saxion.cds.io;
 
-import nl.saxion.cds.util.io.CsvFileLoader;
+import nl.saxion.cds.client.CreateClientService;
+import nl.saxion.cds.io.CsvFileLoader;
 
 public class ClientsCsvLoader extends CsvFileLoader {
     private final CreateClientService service;

@@ -1,4 +1,4 @@
-package nl.saxion.cds.util.io;
+package nl.saxion.cds.io;
 
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;

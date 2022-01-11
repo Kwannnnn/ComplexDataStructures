@@ -1,15 +1,17 @@
-import nl.saxion.cds.DataManager;
 import nl.saxion.app.SaxionApp;
+import nl.saxion.cds.DataManager;
 import nl.saxion.cds.SystemFacade;
 
 import java.io.IOException;
 
 public class StartApplication implements Runnable {
+    private DataManager data;
     private SystemFacade facade;
 
     public StartApplication() {
         try {
-            this.facade = new SystemFacade();
+            this.data = new DataManager();
+            this.facade = new SystemFacade(this.data);
         } catch (IOException e) {
             System.err.println(e.getMessage());
             System.exit(1);
