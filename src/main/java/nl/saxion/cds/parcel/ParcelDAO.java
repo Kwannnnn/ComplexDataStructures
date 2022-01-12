@@ -3,6 +3,7 @@ package nl.saxion.cds.parcel;
 import nl.saxion.cds.client.Client;
 import nl.saxion.cds.comparator.DistanceComparator;
 import nl.saxion.cds.db.DataObject;
+import nl.saxion.cds.util.Searcher;
 
 import java.util.*;
 
@@ -47,6 +48,10 @@ public class ParcelDAO implements DataObject<Parcel> {
             this.parcelsPerCustomer.put(customerID, new ArrayList<>());
         }
         this.parcelsPerCustomer.get(customerID).add(parcel);
+    }
+
+    public List<Parcel> getParcelsForADay(String date) {
+        return Searcher.getAllParcelsForADay(this.getAll(), date);
     }
 
     private void addParcelToRoute(Parcel parcel) {

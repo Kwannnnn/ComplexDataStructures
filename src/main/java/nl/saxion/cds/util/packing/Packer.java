@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Packer {
 
-    public static void packFirstFitDecreasing(List<Parcel> parcels, List<Van> vans) {
+    public static PackingBST packFirstFitDecreasing(List<Parcel> parcels, List<Van> vans) {
         // only 1 van for now
         var tree = new PackingBST(vans.get(0).getBreadth(), vans.get(0).getHeight());
 
@@ -18,8 +18,9 @@ public class Packer {
 
         for (var parcel : parcels) {
             tree.insert(parcel);
-
         }
+
+        return tree;
     }
 
 //    public void printTree(Node root) {

@@ -27,10 +27,9 @@ package nl.saxion.cds.util.packing;
 
 import nl.saxion.cds.parcel.Parcel;
 
-/**
- *
- * @author alexbonilla
- */
+import java.util.ArrayList;
+import java.util.List;
+
 public class PackingBST implements BinarySearchTree<Parcel> {
 
     private final Node<Parcel> root;
@@ -55,6 +54,24 @@ public class PackingBST implements BinarySearchTree<Parcel> {
     public Node<Parcel> findNode(double w, double h) {
         return searchForNode(this.root, w, h);
     }
+    
+    public List<Node<Parcel>> toList() {
+        System.out.println(this.root.getRight().getData().getLength());
+        return createList(this.root);
+    }
+
+    private List<Node<Parcel>> createList(Node<Parcel> root) {
+        if(root == null) {
+            return new ArrayList<>();
+        }
+
+        var list = new ArrayList<Node<Parcel>>();
+        list.addAll(createList(root.getRight()));
+        list.add(root);
+        list.addAll(createList(root.getDown()));
+
+        return list;
+    }
 
     private Node<Parcel> searchForNode(Node<Parcel> parent, double w, double h) {
         // Base case 1: The parent node is empty
@@ -63,7 +80,7 @@ public class PackingBST implements BinarySearchTree<Parcel> {
         }
 
         // Base case 2: The parent node is the search
-        if (w <= parent.getW() && h <= parent.getH()) {
+        if (w <= parent.getW() && h <= parent.getH() && !parent.isUsed()) {
             return parent;
         }
 
@@ -75,39 +92,4 @@ public class PackingBST implements BinarySearchTree<Parcel> {
 
         return right;
     }
-
-//    public void fit(List<Parcel> parcels) {
-//        Node<Parcel> node;
-//        Parcel parcel;
-//        Iterator<Parcel> parcelIterator = parcels.iterator();
-//        while (parcelIterator.hasNext()) {
-//            parcel = parcelIterator.next();
-//            if ((node = this.findNode(parcel.getW(), parcel.getH()))!=null) {
-//                // set value of
-//                parcel.setData(this.splitNode(node, parcel.getW(), parcel.getH()));
-//                if(node.isRoot()){
-//                    parcel.getData().setRoot(true);
-//                }
-//            }
-//        }
-//    }
-
-//        if (root.isUsed()) {
-//            Node<Parcel> right = findNode(root.getRight(), w, h);
-//            return (right != null ? right : findNode(root.getDown(), w, h));
-//        } else if ((w <= root.getW()) && (h <= root.getH())) {
-//            return root;
-//        } else {
-//            return null;
-//        }
-//    }
-
-
-
-//    public void splitNode(Node<Parcel> node, int w, int h) {
-//        node.setUsed(true);
-//        node.setDown(new Node<>(node.getX(), node.getY() + h, node.getW(), node.getH() - h));
-//        node.setRight(new Node<>(node.getX() + w, node.getY(), node.getW() - w, h));
-//    }
-
 }

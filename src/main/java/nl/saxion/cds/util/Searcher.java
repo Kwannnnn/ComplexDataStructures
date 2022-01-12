@@ -31,6 +31,22 @@ public class Searcher {
     /**
      * Finds the status of a parcel by ID in a sequential manner.
      * @param parcels the list of parcel to search in
+     * @param date the date to search for
+     * @return the ParcelStatus if found, or null if not found.
+     */
+    public static List<Parcel> getAllParcelsForADay(Collection<Parcel> parcels, String date) {
+        var result = new ArrayList<Parcel>();
+        for (var parcel : parcels) {
+            if (parcel.getEntryDate().equals(date))
+                result.add(parcel);
+        }
+
+        return result;
+    }
+
+    /**
+     * Finds the status of a parcel by ID in a sequential manner.
+     * @param parcels the list of parcel to search in
      * @param id the ID of the Parcel to look for
      * @return the ParcelStatus if found, or null if not found.
      */

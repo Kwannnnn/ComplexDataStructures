@@ -5,6 +5,7 @@ import nl.saxion.cds.SystemFacade;
 import java.io.IOException;
 
 public class StartApplication implements Runnable {
+    public static final double SCALE = 0.5;
     private DataManager data;
     private SystemFacade facade;
 
@@ -19,17 +20,31 @@ public class StartApplication implements Runnable {
     }
 
     public static void main(String[] args) {
-        SaxionApp.start(new StartApplication());
+        SaxionApp.start(new StartApplication(), 600, 600);
     }
 
     @Override
     public void run() {
+        var packages = this.facade.getAllPackages("1-12-2021");
+        System.out.println(packages);
+        for (var parcel :
+                packages) {
+            if (parcel.getData() != null) {
+                var color = SaxionApp.getRandomColor();
+                SaxionApp.setFill(color);
+                SaxionApp.drawRectangle(parcel.getX(), parcel.getY(), parcel.getData().getBreadth(), parcel.getData().getLength());
+            }
+        }
+
+
+
+
 //        int choice;
 //        showMenu();
 //        choice = inputOption(2);
 //        System.out.println(this.facade.getParcelStatus("13580"));
 
-        System.out.println(this.facade.getTop10Recipients());
+//        System.out.println(this.facade.getTop10Recipients());
 
 //        db.sortClientsByName();
 //        System.out.println(manager.getClients());

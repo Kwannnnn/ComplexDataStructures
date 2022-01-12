@@ -1,7 +1,11 @@
 package nl.saxion.cds;
 
 import nl.saxion.cds.client.ClientService;
+import nl.saxion.cds.parcel.Parcel;
 import nl.saxion.cds.parcel.ParcelService;
+import nl.saxion.cds.util.packing.Packer;
+import nl.saxion.cds.util.packing.PackingBST;
+import nl.saxion.cds.util.packing.Node;
 
 import java.io.IOException;
 import java.util.List;
@@ -19,6 +23,10 @@ public class SystemFacade {
 
     public String getParcelStatus(String id) {
         return this.parcelService.getParcelStatus(id);
+    }
+
+    public List<Node<Parcel>> getAllPackages(String date) {
+        return this.parcelService.getPackages(date);
     }
 
     public List<String> getTop10Recipients() {
