@@ -25,6 +25,7 @@ public class Packer {
 
             // assuming that each parcel can fit into the van
             Sorter.sort(parcelsCopy, new AreaDescComparator());
+            System.out.println("Biggest length: " + parcelsCopy.get(0).getLength());
 
             Iterator<Parcel> iterator = parcelsCopy.iterator();
             while (iterator.hasNext()) {
