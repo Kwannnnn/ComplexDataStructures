@@ -22,12 +22,4 @@ public class Packer {
 
         return tree;
     }
-
-//    public void printTree(Node root) {
-//        if (root == null) return;
-//        System.out.println(root.);
-//        printTree(root.left);
-//        printTree(root.right);
-//    }
-
 }

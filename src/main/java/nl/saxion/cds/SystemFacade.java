@@ -3,9 +3,7 @@ package nl.saxion.cds;
 import nl.saxion.cds.client.ClientService;
 import nl.saxion.cds.parcel.Parcel;
 import nl.saxion.cds.parcel.ParcelService;
-import nl.saxion.cds.util.packing.Packer;
-import nl.saxion.cds.util.packing.PackingBST;
-import nl.saxion.cds.util.packing.Node;
+import nl.saxion.cds.util.tree.Node;
 
 import java.io.IOException;
 import java.util.List;

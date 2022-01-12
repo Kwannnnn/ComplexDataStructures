@@ -1,6 +1,6 @@
 package nl.saxion.cds.parcel;
 
-import nl.saxion.cds.util.packing.Node;
+import nl.saxion.cds.util.tree.Node;
 import nl.saxion.cds.util.packing.Packer;
 import nl.saxion.cds.van.Van;
 
