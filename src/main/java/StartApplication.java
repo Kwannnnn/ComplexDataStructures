@@ -25,15 +25,17 @@ public class StartApplication implements Runnable {
 
     @Override
     public void run() {
-        var packages = this.facade.getAllPackages("1-12-2021");
-        System.out.println(packages);
-        for (var parcel :
-                packages) {
-            if (parcel.getData() != null) {
-                var color = SaxionApp.getRandomColor();
-                SaxionApp.setFill(color);
-                SaxionApp.drawRectangle(parcel.getX(), parcel.getY(), parcel.getData().getBreadth(), parcel.getData().getLength());
+        var vans = this.facade.getAllPackages("1-12-2021");
+        for (var vanParcels : vans) {
+            for (var parcel : vanParcels) {
+                if (parcel.getData() != null) {
+                    var color = SaxionApp.getRandomColor();
+                    SaxionApp.setFill(color);
+                    SaxionApp.drawRectangle(parcel.getX(), parcel.getY(), parcel.getData().getBreadth(), parcel.getData().getLength());
+                }
             }
+            SaxionApp.pause();
+            SaxionApp.clear();
         }
 
 

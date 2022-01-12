@@ -23,7 +23,7 @@ public class SystemFacade {
         return this.parcelService.getParcelStatus(id);
     }
 
-    public List<Node<Parcel>> getAllPackages(String date) {
+    public List<List<Node<Parcel>>> getAllPackages(String date) {
         return this.parcelService.getPackages(date);
     }
 

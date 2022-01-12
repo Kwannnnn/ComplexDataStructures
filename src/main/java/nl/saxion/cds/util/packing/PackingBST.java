@@ -16,16 +16,18 @@ public class PackingBST implements BinarySearchTree<Parcel> {
     }
 
     @Override
-    public void insert(Parcel data) {
+    public boolean insert(Parcel data) {
         var length = data.getLength();
         var breadth = data.getBreadth();
         var node = this.findNode(data.getLength(), data.getBreadth());
-        if (node == null) return;
+        if (node == null) return false;
 
         node.setData(data);
         node.setUsed(true);
         node.setDown(new Node<>(node.getX(), node.getY() + length, node.getW(), node.getH() - length));
         node.setRight(new Node<>(node.getX() + breadth, node.getY(), node.getW() - breadth, length));
+
+        return true;
     }
 
     public Node<Parcel> findNode(double w, double h) {

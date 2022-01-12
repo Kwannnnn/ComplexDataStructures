@@ -24,10 +24,14 @@ public class ParcelService {
         };
     }
 
-    public List<Node<Parcel>> getPackages(String date) {
-        return Packer
-                .packFirstFitDecreasing(this.parcelDAO.getParcelsForADay(date), List.of(new Van(1L, 600, 600, 300)))
-                .toList();
+    public List<List<Node<Parcel>>> getPackages(String date) {
+        var result = new ArrayList<List<Node<Parcel>>>();
+        var filledVans = Packer.packFirstFitDecreasing(this.parcelDAO.getParcelsForADay(date));
+        for (var van : filledVans) {
+            result.add(van.toList());
+        }
+
+        return result;
     }
 
     public ArrayList<String> getAllParcelIDs() {

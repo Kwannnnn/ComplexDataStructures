@@ -5,19 +5,15 @@ import nl.saxion.cds.parcel.Parcel;
 import java.util.Stack;
 
 public class Van {
-    private final Long id;
     private int length;
-    private int breadth;
-    private int height;
+    private int width;
     private int availableArea;
     private Stack<Parcel> parcels;
 
-    public Van(Long id, int length, int breadth, int height) {
-        this.id = id;
+    public Van(int length, int width) {
         this.length = length;
-        this.height = height;
-        this.breadth = breadth;
-        this.availableArea = length * breadth;
+        this.width = width;
+        this.availableArea = length * width;
         this.parcels = new Stack<>();
     }
 
@@ -32,7 +28,7 @@ public class Van {
         int parcelBreadth = parcel.getBreadth();
 
         return parcelLength <= this.length &&
-                parcelBreadth <= this.breadth &&
+                parcelBreadth <= this.width &&
                 parcelBreadth * parcelLength <= this.availableArea;
     }
 
@@ -50,11 +46,11 @@ public class Van {
         this.availableArea += parcel.getLength() * parcel.getBreadth();
     }
 
-    public int getBreadth() {
-        return breadth;
+    public int getWidth() {
+        return width;
     }
 
-    public int getHeight() {
-        return height;
+    public int getLength() {
+        return this.length;
     }
 }

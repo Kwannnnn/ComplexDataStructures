@@ -1,25 +1,42 @@
 package nl.saxion.cds.util.packing;
 
 import nl.saxion.cds.parcel.Parcel;
-import nl.saxion.cds.van.Van;
+
 import nl.saxion.cds.comparator.AreaDescComparator;
 import nl.saxion.cds.util.Sorter;
+import nl.saxion.cds.van.Van;
 
+import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 public class Packer {
+    public static final int DEFAULT_VAN_LENGTH = 600;
+    public static final int DEFAULT_VAN_WIDTH = 300;
 
-    public static PackingBST packFirstFitDecreasing(List<Parcel> parcels, List<Van> vans) {
-        // only 1 van for now
-        var tree = new PackingBST(vans.get(0).getBreadth(), vans.get(0).getHeight());
+    public static List<PackingBST> packFirstFitDecreasing(List<Parcel> parcels) {
+        var result = new ArrayList<PackingBST>();
 
-        // assuming that each parcel can fit into the van
-        Sorter.sort(parcels, new AreaDescComparator());
+        var parcelsCopy = new ArrayList<>(parcels);
 
-        for (var parcel : parcels) {
-            tree.insert(parcel);
+        while (parcelsCopy.size() > 0) {
+            Van van = new Van(DEFAULT_VAN_LENGTH, DEFAULT_VAN_WIDTH);
+            var tree = new PackingBST(van.getLength(), van.getWidth());
+
+            // assuming that each parcel can fit into the van
+            Sorter.sort(parcelsCopy, new AreaDescComparator());
+
+            Iterator<Parcel> iterator = parcelsCopy.iterator();
+            while (iterator.hasNext()) {
+                if (tree.insert(iterator.next())) {
+                    iterator.remove();
+                    System.out.println(parcelsCopy.size());
+                }
+            }
+
+            result.add(tree);
         }
 
-        return tree;
+        return result;
     }
 }
