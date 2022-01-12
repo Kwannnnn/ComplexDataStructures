@@ -3,8 +3,8 @@ package nl.saxion.cds.util.tree;
 public class Node<T> {
     private final int x;
     private final int y;
-    private final int w;
-    private final int h;
+    private final int width;
+    private final int length;
     private boolean used = false;
     private Node<T> right;
     private Node<T> down;
@@ -13,8 +13,8 @@ public class Node<T> {
     public Node(int x, int y, int w, int h) {
         this.x = x;
         this.y = y;
-        this.w = w;
-        this.h = h;
+        this.width = w;
+        this.length = h;
     }
 
     public void setUsed(boolean used) {
@@ -41,12 +41,12 @@ public class Node<T> {
         return y;
     }
 
-    public int getW() {
-        return w;
+    public int getWidth() {
+        return width;
     }
 
-    public int getH() {
-        return h;
+    public int getLength() {
+        return length;
     }
 
     public boolean isUsed() {

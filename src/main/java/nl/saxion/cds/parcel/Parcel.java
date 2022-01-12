@@ -5,7 +5,7 @@ import nl.saxion.cds.client.Client;
 public class Parcel implements Comparable<Parcel> {
     private final Long id;
     private int length;
-    private int breadth;
+    private int width;
     private int height;
     private double weight;
     private String entryDate;
@@ -13,13 +13,13 @@ public class Parcel implements Comparable<Parcel> {
     private final Client client;
 
 
-    public Parcel(Long id, int length, int breadth, int height, double weight, String entryDate,
+    public Parcel(Long id, int length, int width, int height, double weight, String entryDate,
                   Client client) {
-        // use breadth and length for now
-//        super("Parcel id: " + id, breadth, length);
+        // use width and length for now
+//        super("Parcel id: " + id, width, length);
         this.id = id;
         this.length = length;
-        this.breadth = breadth;
+        this.width = width;
         this.height = height;
         this.weight = weight;
         this.entryDate = entryDate;
@@ -35,7 +35,7 @@ public class Parcel implements Comparable<Parcel> {
      */
     @Override
     public int compareTo(Parcel parcel) {
-        return Math.max(this.length, this.breadth) - Math.max(parcel.length, parcel.breadth);
+        return Math.max(this.length, this.width) - Math.max(parcel.length, parcel.width);
     }
 
     @Override
@@ -54,8 +54,8 @@ public class Parcel implements Comparable<Parcel> {
         return this.length;
     }
 
-    public int getBreadth() {
-        return this.breadth;
+    public int getWidth() {
+        return this.width;
     }
 
     public int getHeight() {
@@ -63,7 +63,8 @@ public class Parcel implements Comparable<Parcel> {
     }
 
     public int getMinArea() {
-        return Math.min(Math.min(this.height * this.breadth, this.height * this.length), this.length * this.breadth);
+//        return Math.min(Math.min(this.height * this.breadth, this.height * this.length), this.length * this.breadth);
+        return width * length;
     }
 
     public String getEntryDate() {

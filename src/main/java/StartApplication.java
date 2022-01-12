@@ -31,7 +31,7 @@ public class StartApplication implements Runnable {
                 if (parcel.getData() != null) {
                     var color = SaxionApp.getRandomColor();
                     SaxionApp.setFill(color);
-                    SaxionApp.drawRectangle(parcel.getX(), parcel.getY(), parcel.getData().getBreadth(), parcel.getData().getLength());
+                    SaxionApp.drawRectangle(parcel.getX(), parcel.getY(), parcel.getData().getWidth(), parcel.getData().getLength());
                 }
             }
             SaxionApp.pause();

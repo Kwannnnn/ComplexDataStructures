@@ -18,20 +18,20 @@ public class PackingBST implements BinarySearchTree<Parcel> {
     @Override
     public boolean insert(Parcel data) {
         var length = data.getLength();
-        var breadth = data.getBreadth();
-        var node = this.findNode(data.getLength(), data.getBreadth());
+        var width = data.getWidth();
+        var node = this.findNode(data.getWidth(), data.getLength());
         if (node == null) return false;
 
         node.setData(data);
         node.setUsed(true);
-        node.setDown(new Node<>(node.getX(), node.getY() + length, node.getW(), node.getH() - length));
-        node.setRight(new Node<>(node.getX() + breadth, node.getY(), node.getW() - breadth, length));
+        node.setDown(new Node<>(node.getX(), node.getY() + length, node.getWidth(), node.getLength() - length));
+        node.setRight(new Node<>(node.getX() + width, node.getY(), node.getWidth() - width, length));
 
         return true;
     }
 
-    public Node<Parcel> findNode(double w, double h) {
-        return searchForNode(this.root, w, h);
+    public Node<Parcel> findNode(double width, double length) {
+        return searchForNode(this.root, width, length);
     }
     
     public List<Node<Parcel>> toList() {
@@ -52,22 +52,22 @@ public class PackingBST implements BinarySearchTree<Parcel> {
         return list;
     }
 
-    private Node<Parcel> searchForNode(Node<Parcel> parent, double w, double h) {
+    private Node<Parcel> searchForNode(Node<Parcel> parent, double width, double length) {
         // Base case 1: The parent node is empty
         if (parent == null) {
             return null;
         }
 
         // Base case 2: The parent node is the search
-        if (w <= parent.getW() && h <= parent.getH() && !parent.isUsed()) {
+        if (width <= parent.getWidth() && length <= parent.getLength() && !parent.isUsed()) {
             return parent;
         }
 
         // Step in the right direction:
         // Check left sub-tree: if data is smaller than the data of the parent
         // Check right sub-tree: if data is larger than the data of the parent
-        var right = searchForNode(parent.getRight(), w, h);
-        if (right == null) return searchForNode(parent.getDown(), w, h);
+        var right = searchForNode(parent.getRight(), width, length);
+        if (right == null) return searchForNode(parent.getDown(), width, length);
 
         return right;
     }

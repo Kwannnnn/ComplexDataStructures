@@ -25,7 +25,7 @@ public class Van {
      */
     public boolean parcelFits(Parcel parcel) {
         int parcelLength = parcel.getLength();
-        int parcelBreadth = parcel.getBreadth();
+        int parcelBreadth = parcel.getWidth();
 
         return parcelLength <= this.length &&
                 parcelBreadth <= this.width &&
@@ -38,12 +38,12 @@ public class Van {
             this.parcels.push(parcel);
         }
         // Decrease available space
-        this.availableArea -= parcel.getLength() * parcel.getBreadth();
+        this.availableArea -= parcel.getLength() * parcel.getWidth();
     }
 
     public void deliverParcel() {
         var parcel = this.parcels.pop();
-        this.availableArea += parcel.getLength() * parcel.getBreadth();
+        this.availableArea += parcel.getLength() * parcel.getWidth();
     }
 
     public int getWidth() {
