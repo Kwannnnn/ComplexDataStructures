@@ -1,4 +1,4 @@
-package nl.saxion.cds.util.tree;
+package nl.saxion.cds.tree;
 
 public class Node<T> {
     private final int x;

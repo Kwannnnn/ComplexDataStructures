@@ -1,8 +1,9 @@
-package nl.saxion.cds.util.packing;
+package nl.saxion.cds.util;
 
 import nl.saxion.cds.parcel.Parcel;
 
 import nl.saxion.cds.comparator.AreaDescComparator;
+import nl.saxion.cds.tree.PackingBST;
 import nl.saxion.cds.util.Sorter;
 import nl.saxion.cds.van.Van;
 
@@ -11,7 +12,7 @@ import java.util.Iterator;
 import java.util.List;
 
 public class Packer {
-    public static final int DEFAULT_VAN_LENGTH = 600;
+    public static final int DEFAULT_VAN_LENGTH = 580;
     public static final int DEFAULT_VAN_WIDTH = 300;
 
     public static List<PackingBST> packFirstFitDecreasing(List<Parcel> parcels) {
@@ -25,13 +26,11 @@ public class Packer {
 
             // assuming that each parcel can fit into the van
             Sorter.sort(parcelsCopy, new AreaDescComparator());
-            System.out.println("Biggest length: " + parcelsCopy.get(0).getLength());
 
             Iterator<Parcel> iterator = parcelsCopy.iterator();
             while (iterator.hasNext()) {
                 if (tree.insert(iterator.next())) {
                     iterator.remove();
-                    System.out.println(parcelsCopy.size());
                 }
             }
 

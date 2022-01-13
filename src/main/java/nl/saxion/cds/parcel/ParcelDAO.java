@@ -1,8 +1,8 @@
 package nl.saxion.cds.parcel;
 
-import nl.saxion.cds.client.Client;
-import nl.saxion.cds.comparator.DistanceComparator;
 import nl.saxion.cds.db.DataObject;
+import nl.saxion.cds.region.Region;
+import nl.saxion.cds.region.RegionMap;
 import nl.saxion.cds.util.Searcher;
 
 import java.util.*;
@@ -13,12 +13,14 @@ import java.util.*;
 public class ParcelDAO implements DataObject<Parcel> {
     private final HashMap<Long, Parcel> parcels;
     private final HashMap<Long, List<Parcel>> parcelsPerCustomer;
-    private final HashMap<String, PriorityQueue<Client>> routesPerDay;
+    private final RegionMap regionMap;
+    private final HashMap<String, List<Parcel>> parcelsPerDay;
 
     public ParcelDAO() {
         this.parcels = new HashMap<>();
         this.parcelsPerCustomer = new HashMap<>();
-        this.routesPerDay = new HashMap<>();
+        this.regionMap = new RegionMap(0,0,800, 200, 7);
+        this.parcelsPerDay = new HashMap<>();
     }
 
     @Override
@@ -35,6 +37,7 @@ public class ParcelDAO implements DataObject<Parcel> {
     @Override
     public void save(Parcel parcel) {
         this.parcels.put(parcel.getId(), parcel);
+//        addParcelToADate(parcel.getEntryDate(), parcel);
         addParcelToCustomer(parcel);
     }
 
@@ -50,15 +53,28 @@ public class ParcelDAO implements DataObject<Parcel> {
         this.parcelsPerCustomer.get(customerID).add(parcel);
     }
 
-    public List<Parcel> getParcelsForADay(String date) {
-        return Searcher.getAllParcelsForADay(this.getAll(), date);
+    private void addParcelToADate(Parcel parcel) {
+        var date = parcel.getEntryDate();
+        if (!this.parcelsPerDay.containsKey(date)) {
+            this.parcelsPerDay.put(date, new ArrayList<>());
+        }
+        this.parcelsPerDay.get(date).add(parcel);
     }
 
-    private void addParcelToRoute(Parcel parcel) {
-        var date = parcel.getEntryDate();
-        if (!this.routesPerDay.containsKey(date)) {
-            this.routesPerDay.put(date, new PriorityQueue<>(new DistanceComparator()));
+    public List<Parcel> getParcelsForADay(String date) {
+        var a = Searcher.getAllParcelsForADay(this.getAll(), date);
+        System.out.println(a);
+        return a;
+    }
+
+    public List<List<Parcel>> getDailyPackagesPerRegion(String date) {
+        var result = new ArrayList<List<Parcel>>();
+        this.regionMap.distributeParcels(getParcelsForADay(date));
+
+        for (var region : this.regionMap.getRegions()) {
+            result.add(region.getDailyPackages());
         }
-        this.routesPerDay.get(date).add(parcel.getClient());
+
+        return result;
     }
 }

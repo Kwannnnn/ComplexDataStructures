@@ -1,8 +1,8 @@
-package nl.saxion.cds.util.packing;
+package nl.saxion.cds.tree;
 
 import nl.saxion.cds.parcel.Parcel;
-import nl.saxion.cds.util.tree.BinarySearchTree;
-import nl.saxion.cds.util.tree.Node;
+import nl.saxion.cds.tree.BinarySearchTree;
+import nl.saxion.cds.tree.Node;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -35,12 +35,11 @@ public class PackingBST implements BinarySearchTree<Parcel> {
     }
     
     public List<Node<Parcel>> toList() {
-        System.out.println(this.root.getRight().getData().getLength());
         return createList(this.root);
     }
 
     private List<Node<Parcel>> createList(Node<Parcel> root) {
-        if(root == null) {
+        if (root == null) {
             return new ArrayList<>();
         }
 

@@ -3,7 +3,7 @@ package nl.saxion.cds;
 import nl.saxion.cds.client.ClientService;
 import nl.saxion.cds.parcel.Parcel;
 import nl.saxion.cds.parcel.ParcelService;
-import nl.saxion.cds.util.tree.Node;
+import nl.saxion.cds.tree.Node;
 
 import java.io.IOException;
 import java.util.List;
@@ -29,5 +29,9 @@ public class SystemFacade {
 
     public List<String> getTop10Recipients() {
         return this.clientService.getTop10Recipients(this.data.getParcelDAO().getParcelsPerCustomer());
+    }
+
+    public List<List<Parcel>> getOptimalRouteForRegion(String date) {
+        return this.parcelService.getDailyPackagesPerRegion(date);
     }
 }

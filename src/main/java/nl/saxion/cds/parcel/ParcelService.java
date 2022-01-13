@@ -1,8 +1,7 @@
 package nl.saxion.cds.parcel;
 
-import nl.saxion.cds.util.tree.Node;
-import nl.saxion.cds.util.packing.Packer;
-import nl.saxion.cds.van.Van;
+import nl.saxion.cds.tree.Node;
+import nl.saxion.cds.util.Packer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -38,5 +37,10 @@ public class ParcelService {
         var result = new ArrayList<String>();
         this.parcelDAO.getAll().forEach(parcel -> result.add(parcel.getId().toString()));
         return result;
+    }
+
+
+    public List<List<Parcel>> getDailyPackagesPerRegion(String date) {
+        return this.parcelDAO.getDailyPackagesPerRegion(date);
     }
 }

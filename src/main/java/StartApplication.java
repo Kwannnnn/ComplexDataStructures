@@ -1,11 +1,13 @@
 import nl.saxion.app.SaxionApp;
 import nl.saxion.cds.DataManager;
 import nl.saxion.cds.SystemFacade;
+import nl.saxion.cds.region.RegionMap;
 
 import java.io.IOException;
 
 public class StartApplication implements Runnable {
     public static final double SCALE = 0.5;
+    public static final int MARGIN = 37;
     private DataManager data;
     private SystemFacade facade;
 
@@ -25,18 +27,24 @@ public class StartApplication implements Runnable {
 
     @Override
     public void run() {
-        var vans = this.facade.getAllPackages("1-12-2021");
-        for (var vanParcels : vans) {
-            for (var parcel : vanParcels) {
-                if (parcel.getData() != null) {
-                    var color = SaxionApp.getRandomColor();
-                    SaxionApp.setFill(color);
-                    SaxionApp.drawRectangle(parcel.getX(), parcel.getY(), parcel.getData().getWidth(), parcel.getData().getLength());
-                }
-            }
-            SaxionApp.pause();
-            SaxionApp.clear();
-        }
+//        var vans = this.facade.getAllPackages("1-12-2021");
+//        int vanCount = 0;
+//        for (var vanParcels : vans) {
+//            SaxionApp.printLine("Van " + ++vanCount );
+//            SaxionApp.setBorderColor(Color.white);
+//            SaxionApp.setFill(Color.BLACK);
+//            SaxionApp.drawRectangle(10, MARGIN, 580, 300);
+//            for (var parcel : vanParcels) {
+//                if (parcel.getData() != null) {
+//                    var color = SaxionApp.getRandomColor();
+//                    SaxionApp.setBorderSize(0);
+//                    SaxionApp.setFill(color);
+//                    SaxionApp.drawRectangle(parcel.getX() + 10, parcel.getY() + MARGIN, parcel.getData().getWidth(), parcel.getData().getLength());
+//                }
+//            }
+//            SaxionApp.pause();
+//            SaxionApp.clear();
+//        }
 
 
 
