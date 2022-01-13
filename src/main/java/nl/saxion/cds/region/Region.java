@@ -1,6 +1,5 @@
 package nl.saxion.cds.region;
 
-import nl.saxion.cds.client.Address;
 import nl.saxion.cds.parcel.Parcel;
 
 import java.util.ArrayList;
@@ -26,9 +25,9 @@ public class Region {
         this.dailyPackages.add(parcel);
     }
 
-    public boolean addressInRange(Address address) {
-        return (address.x() >= this.topLeft.getX() && address.x() <= this.topRight.getX())
-                && (address.y() >= this.topLeft.getY() && address.y() <= this.bottomRight.getY());
+    public boolean addressInRange(Coordinate address) {
+        return (address.getX() >= this.topLeft.getX() && address.getX() <= this.topRight.getX())
+                && (address.getY() >= this.topLeft.getY() && address.getY() <= this.bottomRight.getY());
     }
 
     public List<Parcel> getDailyPackages() {

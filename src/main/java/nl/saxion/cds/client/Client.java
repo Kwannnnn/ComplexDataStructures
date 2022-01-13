@@ -1,19 +1,21 @@
 package nl.saxion.cds.client;
 
+import nl.saxion.cds.region.Coordinate;
+
 public class Client implements Comparable<Client> {
     private final Long id;
     private String name;
     private String initials;
-    private Address address;
+    private Coordinate address;
 
-    public Client(Long id, String name, String initials, Address address) {
+    public Client(Long id, String name, String initials, Coordinate address) {
         this.id = id;
         this.name = name;
         this.initials = initials;
         this.address = address;
     }
 
-    public Address getAddress() {
+    public Coordinate getAddress() {
         return address;
     }
 

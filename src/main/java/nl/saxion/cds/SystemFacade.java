@@ -1,6 +1,7 @@
 package nl.saxion.cds;
 
 import nl.saxion.cds.client.ClientService;
+import nl.saxion.cds.graph.UndirectedWeightedGraph;
 import nl.saxion.cds.parcel.Parcel;
 import nl.saxion.cds.parcel.ParcelService;
 import nl.saxion.cds.tree.Node;
@@ -31,7 +32,7 @@ public class SystemFacade {
         return this.clientService.getTop10Recipients(this.data.getParcelDAO().getParcelsPerCustomer());
     }
 
-    public List<List<Parcel>> getOptimalRouteForRegion(String date) {
+    public UndirectedWeightedGraph getOptimalRouteForRegion(String date) {
         return this.parcelService.getDailyPackagesPerRegion(date);
     }
 }

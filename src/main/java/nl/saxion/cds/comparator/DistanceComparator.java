@@ -1,8 +1,7 @@
 package nl.saxion.cds.comparator;
 
-import nl.saxion.cds.client.Address;
 import nl.saxion.cds.client.Client;
-import nl.saxion.cds.parcel.Parcel;
+import nl.saxion.cds.region.Coordinate;
 
 import java.util.Comparator;
 
@@ -25,7 +24,7 @@ public class DistanceComparator implements Comparator<Client> {
      * @param address an Address
      * @return a positive integer the distance
      */
-    private int calculateDistanceFromDC(Address address) {
-        return Math.abs((address.x() - 375)) + Math.abs((address.y() - 375));
+    private int calculateDistanceFromDC(Coordinate address) {
+        return (int) (Math.abs((address.getX() - 375)) + Math.abs((address.getY() - 375)));
     }
 }

@@ -47,7 +47,12 @@ public class StartApplication implements Runnable {
 //        }
 
 
-
+        var connections = this.facade.getOptimalRouteForRegion("1-12-2021").getAdjVertices();
+        for (var edge : connections) {
+            for (var bs : edge) {
+                System.out.println(bs.getSrc().getLabel() + " ---" + bs.getWeight() + "-->" + bs.getDest().getLabel());
+            }
+        }
 
 //        int choice;
 //        showMenu();

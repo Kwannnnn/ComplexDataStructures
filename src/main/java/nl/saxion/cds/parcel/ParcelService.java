@@ -1,5 +1,8 @@
 package nl.saxion.cds.parcel;
 
+import nl.saxion.cds.graph.UndirectedWeightedGraph;
+import nl.saxion.cds.graph.Vertex;
+import nl.saxion.cds.region.Coordinate;
 import nl.saxion.cds.tree.Node;
 import nl.saxion.cds.util.Packer;
 
@@ -39,8 +42,23 @@ public class ParcelService {
         return result;
     }
 
+    public UndirectedWeightedGraph getDailyPackagesPerRegion(String date) {
+        var r1Packages = this.parcelDAO.getDailyPackagesPerRegion(date).get(0);
+        var graph = new UndirectedWeightedGraph();
+        var vDC = new Vertex("DC", new Coordinate(375,375));
+        graph.addVertex(vDC);
 
-    public List<List<Parcel>> getDailyPackagesPerRegion(String date) {
-        return this.parcelDAO.getDailyPackagesPerRegion(date);
+        for (var parcel : r1Packages) {
+            var v = new Vertex(parcel.getId().toString(), parcel.getClient().getAddress());
+            graph.addVertex(v);
+            for (var vertex : graph.getVertices()) {
+                if (!v.equals(vertex)) {
+                    graph.addEdge(v, vertex);
+                }
+            }
+
+        }
+
+        return graph;
     }
 }

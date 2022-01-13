@@ -1,7 +1,7 @@
 package nl.saxion.cds.comparator;
 
-import nl.saxion.cds.client.Address;
 import nl.saxion.cds.client.Client;
+import nl.saxion.cds.region.Coordinate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -9,9 +9,9 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class DistanceComparatorTest {
-    private static final Client CLOSE_TO_DC = new Client(1L, "John Doe", "J.D.", new Address(374, 374));
-    private static final Client FAR_FROM_DC = new Client(1L, "John Doe", "J.D.", new Address(1, 1));
-    private static final Client FAR_FROM_DC_1 = new Client(2L, "John Doe", "J.D.", new Address(1, 1));
+    private static final Client CLOSE_TO_DC = new Client(1L, "John Doe", "J.D.", new Coordinate(374, 374));
+    private static final Client FAR_FROM_DC = new Client(1L, "John Doe", "J.D.", new Coordinate(1, 1));
+    private static final Client FAR_FROM_DC_1 = new Client(2L, "John Doe", "J.D.", new Coordinate(1, 1));
 
     private DistanceComparator underTest;
 

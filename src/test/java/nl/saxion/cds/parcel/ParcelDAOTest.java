@@ -1,8 +1,8 @@
 package nl.saxion.cds.parcel;
 
-import nl.saxion.cds.client.Address;
 import nl.saxion.cds.client.Client;
 
+import nl.saxion.cds.region.Coordinate;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -10,8 +10,8 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
 
 class ParcelDAOTest {
-    private static final Client CLIENT_1 = new Client(1L, "John Doe", "J.D.", new Address(1, 1));
-    private static final Client CLIENT_2 = new Client(2L, "Jane Doe", "J.D.", new Address(300, 300));
+    private static final Client CLIENT_1 = new Client(1L, "John Doe", "J.D.", new Coordinate(1, 1));
+    private static final Client CLIENT_2 = new Client(2L, "Jane Doe", "J.D.", new Coordinate(300, 300));
 
     private ParcelDAO underTest;
 
