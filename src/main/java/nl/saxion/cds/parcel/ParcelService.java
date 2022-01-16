@@ -28,6 +28,7 @@ public class ParcelService {
 
     public List<List<Node<Parcel>>> getPackages(String date) {
         var result = new ArrayList<List<Node<Parcel>>>();
+        System.out.println(this.parcelDAO.getParcelsForADay(date).size());
         var filledVans = Packer.packFirstFitDecreasing(this.parcelDAO.getParcelsForADay(date));
         for (var van : filledVans) {
             result.add(van.toList());
@@ -44,6 +45,7 @@ public class ParcelService {
 
     public UndirectedWeightedGraph getDailyPackagesPerRegion(String date) {
         var r1Packages = this.parcelDAO.getDailyPackagesPerRegion(date).get(0);
+
         var graph = new UndirectedWeightedGraph();
         var vDC = new Vertex("DC", new Coordinate(375,375));
         graph.addVertex(vDC);

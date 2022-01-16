@@ -1,7 +1,9 @@
 import nl.saxion.app.SaxionApp;
 import nl.saxion.cds.DataManager;
 import nl.saxion.cds.SystemFacade;
+import nl.saxion.cds.graph.UndirectedWeightedGraph;
 import nl.saxion.cds.graph.Vertex;
+import nl.saxion.cds.region.Coordinate;
 
 import java.awt.*;
 import java.io.IOException;
@@ -34,12 +36,24 @@ public class StartApplication implements Runnable {
 
     @Override
     public void run() {
-        while (this.isRunning) {
-            showMenu();
+//        while (this.isRunning) {
+//            showMenu();
+//
+//            int choice = inputOption(MENU_OPTIONS_COUNT);
+//            handleInputOption(choice);
+//            SaxionApp.printLine();
+//        }
 
-            int choice = inputOption(MENU_OPTIONS_COUNT);
-            handleInputOption(choice);
-            SaxionApp.printLine();
+        UndirectedWeightedGraph graph = new UndirectedWeightedGraph();
+        graph.addVertex(new Vertex("DC", new Coordinate(0, 0)));
+        graph.addVertex(new Vertex("1", new Coordinate(10, 10)));
+        graph.addVertex(new Vertex("2", new Coordinate(50, 50)));
+        graph.addVertex(new Vertex("3", new Coordinate(20, 20)));
+        graph.addVertex(new Vertex("4", new Coordinate(100, 100)));
+        graph.addVertex(new Vertex("5", new Coordinate(5, 5)));
+        var result = graph.getEdges();
+        for (var edge : result) {
+            System.out.println(edge.getSource().getLabel() + "--" + edge.getWeight() + "-->" + edge.getDestination().getLabel());
         }
 
 //        int choice;

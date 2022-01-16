@@ -5,23 +5,33 @@ import nl.saxion.cds.region.Coordinate;
 public class Vertex {
     private String label;
     private Coordinate address;
+    private boolean isVisited;
 
     public Vertex(String label, Coordinate address) {
         this.label = label;
         this.address = address;
+        this.isVisited = false;
+    }
+
+    public String getLabel() {
+        return this.label;
+    }
+
+    public Coordinate getAddress() {
+        return this.address;
+    }
+
+    public boolean isVisited() {
+        return this.isVisited;
+    }
+
+    public void setVisited(boolean visited) {
+        isVisited = visited;
     }
 
     @Override
     public int hashCode() {
         return label.hashCode();
-    }
-
-    public String getLabel() {
-        return label;
-    }
-
-    public Coordinate getAddress() {
-        return address;
     }
 
     @Override

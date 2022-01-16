@@ -46,6 +46,6 @@ public class SystemFacade {
         List<Edge> edges = graph.getEdges();
         Dijkstra2 dijkstra = new Dijkstra2(vertices, edges);
         dijkstra.execute(vertices.get(0));
-        return dijkstra.getPath(vertices.get(5));
+        return dijkstra.getPath(vertices.get(2));
     }
 }
