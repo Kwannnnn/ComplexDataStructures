@@ -53,10 +53,9 @@ public class ParcelService {
             graph.addVertex(v);
             for (var vertex : graph.getVertices()) {
                 if (!v.equals(vertex)) {
-                    graph.addEdge(v, vertex);
+                    graph.addEdge(vertex, v);
                 }
             }
-
         }
 
         return graph;

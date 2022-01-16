@@ -4,15 +4,21 @@ import java.util.*;
 
 public class UndirectedWeightedGraph implements Graph {
 
-    private Map<Vertex, List<Edge>> adjVertices;
+//    private Map<Vertex, List<Edge>> adjVertices;
+
+    private List<Vertex> vertices;
+    private List<Edge> edges;
 
     public UndirectedWeightedGraph() {
-        this.adjVertices = new HashMap<>();
+//        this.adjVertices = new HashMap<>();
+        this.vertices = new ArrayList<>();
+        this.edges = new ArrayList<>();
     }
 
     @Override
     public void addVertex(Vertex vertex) {
-        adjVertices.putIfAbsent(vertex, new ArrayList<>());
+//        adjVertices.putIfAbsent(vertex, new ArrayList<>());
+        vertices.add(vertex);
     }
 
     @Override
@@ -27,8 +33,9 @@ public class UndirectedWeightedGraph implements Graph {
 
         int weight = (int) (Math.abs(srcAddress.getX() - destAddress.getX()) + Math.abs(srcAddress.getY() - destAddress.getY()));
         var edge = new Edge(src, dest, weight);
-        this.adjVertices.get(src).add(edge);
-        this.adjVertices.get(dest).add(edge);
+//        this.adjVertices.get(src).add(edge);
+//        this.adjVertices.get(dest).add(edge);
+        edges.add(edge);
     }
 
     @Override
@@ -36,11 +43,14 @@ public class UndirectedWeightedGraph implements Graph {
 
     }
 
-    public Set<Vertex> getVertices() {
-        return this.adjVertices.keySet();
+    public List<Vertex> getVertices() {
+//        return this.adjVertices.keySet();
+        return new ArrayList<>(this.vertices);
     }
 
-    public Collection<List<Edge>> getAdjVertices() {
-        return adjVertices.values();
+    public List<Edge> getEdges() {
+//        return adjVertices.values();
+        return new ArrayList<>(this.edges);
+
     }
 }

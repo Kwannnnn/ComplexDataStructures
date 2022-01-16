@@ -8,7 +8,7 @@ import java.util.Comparator;
 public class DistanceComparator implements Comparator<Client> {
 
     /**
-     * Compares two clients by the distance from the distribution center of their addresses.
+     * Compares two clients by the distance from the distribution center to their addresses.
      * @param c1 the first Client to be compared
      * @param c2 the second Client to be compared
      * @return a negative integer, zero, or a positive integer indicating whether the first argument is less than, equal

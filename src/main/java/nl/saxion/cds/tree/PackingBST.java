@@ -1,8 +1,6 @@
 package nl.saxion.cds.tree;
 
 import nl.saxion.cds.parcel.Parcel;
-import nl.saxion.cds.tree.BinarySearchTree;
-import nl.saxion.cds.tree.Node;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -19,6 +19,7 @@ public class ParcelDAO implements DataObject<Parcel> {
     public ParcelDAO() {
         this.parcels = new HashMap<>();
         this.parcelsPerCustomer = new HashMap<>();
+        // TODO: get top left and bottom right packages
         this.regionMap = new RegionMap(0,0,800, 200, 7);
         this.parcelsPerDay = new HashMap<>();
     }
@@ -45,22 +46,6 @@ public class ParcelDAO implements DataObject<Parcel> {
         return this.parcelsPerCustomer;
     }
 
-    private void addParcelToCustomer(Parcel parcel) {
-        var customerID = parcel.getClient().getId();
-        if (!this.parcelsPerCustomer.containsKey(customerID)) {
-            this.parcelsPerCustomer.put(customerID, new ArrayList<>());
-        }
-        this.parcelsPerCustomer.get(customerID).add(parcel);
-    }
-
-    private void addParcelToADate(Parcel parcel) {
-        var date = parcel.getEntryDate();
-        if (!this.parcelsPerDay.containsKey(date)) {
-            this.parcelsPerDay.put(date, new ArrayList<>());
-        }
-        this.parcelsPerDay.get(date).add(parcel);
-    }
-
     public List<Parcel> getParcelsForADay(String date) {
         var a = Searcher.getAllParcelsForADay(this.getAll(), date);
         System.out.println(a);
@@ -77,4 +62,23 @@ public class ParcelDAO implements DataObject<Parcel> {
 
         return result;
     }
+
+
+    private void addParcelToCustomer(Parcel parcel) {
+        var customerID = parcel.getClient().getId();
+        if (!this.parcelsPerCustomer.containsKey(customerID)) {
+            this.parcelsPerCustomer.put(customerID, new ArrayList<>());
+        }
+        this.parcelsPerCustomer.get(customerID).add(parcel);
+    }
+
+    private void addParcelToADate(Parcel parcel) {
+        var date = parcel.getEntryDate();
+        if (!this.parcelsPerDay.containsKey(date)) {
+            this.parcelsPerDay.put(date, new ArrayList<>());
+        }
+        this.parcelsPerDay.get(date).add(parcel);
+    }
+
+
 }

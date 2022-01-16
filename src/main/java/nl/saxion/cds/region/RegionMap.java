@@ -5,10 +5,10 @@ import nl.saxion.cds.parcel.Parcel;
 import java.util.List;
 
 public class RegionMap {
-    private int x1;
-    private int y1;
-    private int x2;
-    private int y2;
+    private final int x1;
+    private final int y1;
+    private final int x2;
+    private final int y2;
     private Region[] regions;
 
     public RegionMap(int x1, int y1, int x2, int y2, int regionsCount) {

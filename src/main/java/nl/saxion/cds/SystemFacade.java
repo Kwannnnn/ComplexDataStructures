@@ -1,12 +1,16 @@
 package nl.saxion.cds;
 
 import nl.saxion.cds.client.ClientService;
+import nl.saxion.cds.graph.Dijkstra2;
+import nl.saxion.cds.graph.Edge;
 import nl.saxion.cds.graph.UndirectedWeightedGraph;
+import nl.saxion.cds.graph.Vertex;
 import nl.saxion.cds.parcel.Parcel;
 import nl.saxion.cds.parcel.ParcelService;
 import nl.saxion.cds.tree.Node;
 
 import java.io.IOException;
+import java.util.LinkedList;
 import java.util.List;
 
 public class SystemFacade {
@@ -32,7 +36,16 @@ public class SystemFacade {
         return this.clientService.getTop10Recipients(this.data.getParcelDAO().getParcelsPerCustomer());
     }
 
-    public UndirectedWeightedGraph getOptimalRouteForRegion(String date) {
+    public UndirectedWeightedGraph getOptimalRoutePerRegion(String date) {
         return this.parcelService.getDailyPackagesPerRegion(date);
+    }
+
+    public LinkedList<Vertex> getOptimalRouteBetween2Parcels(String date) {
+        var graph =  this.parcelService.getDailyPackagesPerRegion(date);
+        List<Vertex> vertices = graph.getVertices();
+        List<Edge> edges = graph.getEdges();
+        Dijkstra2 dijkstra = new Dijkstra2(vertices, edges);
+        dijkstra.execute(vertices.get(0));
+        return dijkstra.getPath(vertices.get(5));
     }
 }

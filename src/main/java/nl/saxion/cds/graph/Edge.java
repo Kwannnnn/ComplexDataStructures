@@ -11,15 +11,15 @@ public class Edge {
         this.weight = weight;
     }
 
-    public Vertex getSrc() {
+    public int getWeight() {
+        return weight;
+    }
+
+    public Vertex getSource() {
         return src;
     }
 
-    public Vertex getDest() {
+    public Vertex getDestination() {
         return dest;
-    }
-
-    public int getWeight() {
-        return weight;
     }
 }

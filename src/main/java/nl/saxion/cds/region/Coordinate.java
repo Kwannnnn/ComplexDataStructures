@@ -1,8 +1,8 @@
 package nl.saxion.cds.region;
 
 public class Coordinate {
-    private double x;
-    private double y;
+    private final double x;
+    private final double y;
 
     public Coordinate(double x, double y) {
         this.x = x;
