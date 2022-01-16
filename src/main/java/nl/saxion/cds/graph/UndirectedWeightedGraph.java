@@ -64,19 +64,21 @@ public class UndirectedWeightedGraph implements Graph {
 
         while (!allNodesVisited()) {
             int nextMinimum = Integer.MAX_VALUE;
+            int min = Integer.MAX_VALUE;
             var dest = src;
             for (var vertex : this.vertices) {
                 if (vertex.isVisited()) {
                     continue;
                 }
 
-                var weight = Math.abs(dest.getAddress().getX() - vertex.getAddress().getX())
-                        + Math.abs(dest.getAddress().getY() - vertex.getAddress().getY());
+                var weight = Math.abs(src.getAddress().getX() - vertex.getAddress().getX())
+                        + Math.abs(src.getAddress().getY() - vertex.getAddress().getY());
 
                 if (weight < nextMinimum) {
                     nextMinimum = (int)weight;
                     dest = vertex;
                 }
+
             }
             dest.setVisited(true);
             this.edges.add(new Edge(src, dest, nextMinimum));

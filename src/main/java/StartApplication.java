@@ -46,15 +46,24 @@ public class StartApplication implements Runnable {
 
         UndirectedWeightedGraph graph = new UndirectedWeightedGraph();
         graph.addVertex(new Vertex("DC", new Coordinate(0, 0)));
-        graph.addVertex(new Vertex("1", new Coordinate(10, 10)));
-        graph.addVertex(new Vertex("2", new Coordinate(50, 50)));
-        graph.addVertex(new Vertex("3", new Coordinate(20, 20)));
-        graph.addVertex(new Vertex("4", new Coordinate(100, 100)));
-        graph.addVertex(new Vertex("5", new Coordinate(5, 5)));
+        graph.addVertex(new Vertex("1", new Coordinate(20, 20)));
+        graph.addVertex(new Vertex("2", new Coordinate(69, 96)));
+        graph.addVertex(new Vertex("3", new Coordinate(96, 169)));
+        graph.addVertex(new Vertex("4", new Coordinate(378, 245)));
+        graph.addVertex(new Vertex("5", new Coordinate(50, 40)));
         var result = graph.getEdges();
+
         for (var edge : result) {
             System.out.println(edge.getSource().getLabel() + "--" + edge.getWeight() + "-->" + edge.getDestination().getLabel());
+            SaxionApp.drawPoint((int) edge.getSource().getAddress().getX(), (int) edge.getSource().getAddress().getY(), 5);
+            SaxionApp.drawText(edge.getSource().getLabel() ,(int) edge.getSource().getAddress().getX(), (int) edge.getSource().getAddress().getY(), 20);
+            SaxionApp.drawText(edge.getDestination().getLabel() ,(int) edge.getDestination().getAddress().getX(), (int) edge.getDestination().getAddress().getY(), 20);
+            SaxionApp.drawLine((int) edge.getDestination().getAddress().getX(), (int) edge.getDestination().getAddress().getY(), (int) edge.getSource().getAddress().getX(), (int) edge.getSource().getAddress().getY());
+            SaxionApp.drawPoint((int) edge.getDestination().getAddress().getX(), (int) edge.getDestination().getAddress().getY(), 5);
+
         }
+
+        SaxionApp.pause();
 
 //        int choice;
 //        showMenu();
