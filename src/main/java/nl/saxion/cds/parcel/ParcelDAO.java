@@ -1,7 +1,6 @@
 package nl.saxion.cds.parcel;
 
 import nl.saxion.cds.db.DataObject;
-import nl.saxion.cds.region.Region;
 import nl.saxion.cds.region.RegionMap;
 import nl.saxion.cds.util.Searcher;
 
@@ -80,5 +79,7 @@ public class ParcelDAO implements DataObject<Parcel> {
         this.parcelsPerDay.get(date).add(parcel);
     }
 
-
+    public RegionMap getRegionMap() {
+        return this.regionMap;
+    }
 }

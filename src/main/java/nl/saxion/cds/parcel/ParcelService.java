@@ -3,6 +3,7 @@ package nl.saxion.cds.parcel;
 import nl.saxion.cds.graph.UndirectedWeightedGraph;
 import nl.saxion.cds.graph.Vertex;
 import nl.saxion.cds.region.Coordinate;
+import nl.saxion.cds.region.Region;
 import nl.saxion.cds.tree.Node;
 import nl.saxion.cds.util.Packer;
 
@@ -61,5 +62,9 @@ public class ParcelService {
         }
 
         return graph;
+    }
+
+    public List<Region> getRegionsAsList() {
+        return List.of(this.parcelDAO.getRegionMap().getRegions());
     }
 }

@@ -7,6 +7,7 @@ import nl.saxion.cds.graph.UndirectedWeightedGraph;
 import nl.saxion.cds.graph.Vertex;
 import nl.saxion.cds.parcel.Parcel;
 import nl.saxion.cds.parcel.ParcelService;
+import nl.saxion.cds.region.Region;
 import nl.saxion.cds.tree.Node;
 
 import java.io.IOException;
@@ -38,6 +39,10 @@ public class SystemFacade {
 
     public UndirectedWeightedGraph getOptimalRoutePerRegion(String date) {
         return this.parcelService.getDailyPackagesPerRegion(date);
+    }
+
+    public List<Region> getDeliveryRegions() {
+        return this.parcelService.getRegionsAsList();
     }
 
     public LinkedList<Vertex> getOptimalRouteBetween2Parcels(String date) {

@@ -25,6 +25,22 @@ public class Region {
         this.dailyPackages.add(parcel);
     }
 
+    public Coordinate getTopLeft() {
+        return topLeft;
+    }
+
+    public Coordinate getTopRight() {
+        return topRight;
+    }
+
+    public Coordinate getBottomLeft() {
+        return bottomLeft;
+    }
+
+    public Coordinate getBottomRight() {
+        return bottomRight;
+    }
+
     public boolean addressInRange(Coordinate address) {
         return (address.getX() >= this.topLeft.getX() && address.getX() <= this.topRight.getX())
                 && (address.getY() >= this.topLeft.getY() && address.getY() <= this.bottomRight.getY());
