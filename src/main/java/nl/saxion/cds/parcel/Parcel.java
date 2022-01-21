@@ -36,14 +36,14 @@ public class Parcel implements Comparable<Parcel> {
     }
 
     /**
-     * Compares two parcels by the smallest side measurement.
+     * Compares two parcels by their ids.
      * @param parcel the Parcel to be compared
      * @return a negative integer, zero, or a positive integer representing whether this instance is less than,
      * equal to, or greater than the given one.
      */
     @Override
     public int compareTo(Parcel parcel) {
-        return Math.max(this.length, this.width) - Math.max(parcel.length, parcel.width);
+        return this.id.intValue() - parcel.getId().intValue();
     }
 
     @Override

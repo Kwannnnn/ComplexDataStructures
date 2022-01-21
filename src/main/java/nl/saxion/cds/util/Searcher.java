@@ -1,5 +1,6 @@
 package nl.saxion.cds.util;
 
+import nl.saxion.cds.exception.ParcelNotFoundException;
 import nl.saxion.cds.parcel.Parcel;
 import nl.saxion.cds.parcel.ParcelStatus;
 
@@ -30,8 +31,9 @@ public class Searcher {
 
     /**
      * Finds the status of a parcel by ID in a sequential manner.
+     *
      * @param parcels the list of parcel to search in
-     * @param date the date to search for
+     * @param date    the date to search for
      * @return the ParcelStatus if found, or null if not found.
      */
     public static List<Parcel> getAllParcelsForADay(Collection<Parcel> parcels, String date) {
@@ -60,8 +62,9 @@ public class Searcher {
 
     /**
      * Finds the status of a parcel by ID in a sequential manner.
+     *
      * @param parcels the list of parcel to search in
-     * @param id the ID of the Parcel to look for
+     * @param id      the ID of the Parcel to look for
      * @return the ParcelStatus if found, or null if not found.
      */
     public static ParcelStatus getParcelStatusByIDSequentially(List<Parcel> parcels, Long id) throws ParcelNotFoundException {
@@ -70,13 +73,14 @@ public class Searcher {
                 return parcel.getParcelStatus();
         }
 
-        return null;
+        throw new ParcelNotFoundException();
     }
 
     /**
      * Finds the status of a parcel by ID in a binary manner.
+     *
      * @param parcels the list of parcels to search in
-     * @param id the ID of the Parcel to look for
+     * @param id      the ID of the Parcel to look for
      * @return the ParcelStatus if found, or null if not found.
      */
     public static ParcelStatus getParcelStatusByIDBinary(List<Parcel> parcels, Long id) throws ParcelNotFoundException {
@@ -89,8 +93,8 @@ public class Searcher {
             if (parcelID < id) begin = middle + 1;
             else if (parcelID.equals(id)) return parcels.get(middle).getParcelStatus();
             else end = middle - 1;
-        }  while (begin < end);
+        } while (begin < end);
 
-        return null;
+        throw new ParcelNotFoundException();
     }
 }

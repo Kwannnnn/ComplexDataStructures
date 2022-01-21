@@ -42,4 +42,8 @@ public class DataManager {
     public ParcelDAO getParcelDAO() {
         return this.parcelDAO;
     }
+
+    public RegionMap getRegionMap() {
+        return this.regionMap;
+    }
 }

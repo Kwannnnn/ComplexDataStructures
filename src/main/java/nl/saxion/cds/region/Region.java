@@ -46,8 +46,16 @@ public class Region {
                 && (address.getY() >= this.topLeft.getY() && address.getY() <= this.bottomRight.getY());
     }
 
-    public List<Parcel> getDailyPackages() {
-        return dailyPackages;
+//    public List<Parcel> getDailyPackages() {
+//        return dailyPackages;
+//    }
+
+    public double getWidth() {
+        return topRight.getX() - topLeft.getX();
+    }
+
+    public double getLength() {
+        return bottomLeft.getY() - topLeft.getY();
     }
 
     @Override

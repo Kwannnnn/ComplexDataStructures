@@ -54,4 +54,28 @@ public class RegionMap {
     public Region[] getRegions() {
         return regions;
     }
+
+    public int getWidth() {
+        return x2 - x1;
+    }
+
+    public int getLength() {
+        return y2 - y1;
+    }
+
+    public Coordinate getTopLeft() {
+        return new Coordinate(x1, y1);
+    }
+
+    public Coordinate getTopRight() {
+        return new Coordinate(x2, y1);
+    }
+
+    public Coordinate getBottomLeft() {
+        return new Coordinate(x1, y2);
+    }
+
+    public Coordinate getBottomRight() {
+        return new Coordinate(x2, y2);
+    }
 }

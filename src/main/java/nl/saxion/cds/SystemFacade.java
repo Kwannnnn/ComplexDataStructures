@@ -113,29 +113,32 @@ public class SystemFacade {
         return this.regionService.getRegionMapBottomRight();
     }
 
-    public List<List<Node<Parcel>>> getAllPackages(String date) {
-        return this.parcelService.getPackages(date);
-    }
+//    public List<List<Node<Parcel>>> getAllPackages(String date) {
+//        return this.parcelService.getPackages(date);
+//    }
+//
 
-    public List<String> getTop10Recipients() {
-        return this.clientService.getTop10Recipients(this.data.getParcelDAO().getParcelsPerCustomer());
-    }
+//
+//    public UndirectedWeightedGraph getOptimalRoutePerRegion(String date) {
+//        return this.parcelService.getDailyPackagesPerRegion(date);
+//    }
+//
+//    public List<Region> getDeliveryRegions() {
+//        return this.parcelService.getRegionsAsList();
+//    }
+//
+//    public LinkedList<Vertex> getOptimalRouteBetween2Parcels(String date) {
+//        var graph =  this.parcelService.getDailyPackagesPerRegion(date);
+//        List<Vertex> vertices = graph.getVertices();
+//        List<Edge> edges = graph.getEdges();
+//        Dijkstra2 dijkstra = new Dijkstra2(vertices, edges);
+//        dijkstra.execute(vertices.get(0));
+//        return dijkstra.getPath(vertices.get(2));
+//    }
+//
 
-    public UndirectedWeightedGraph getOptimalRoutePerRegion(String date) {
-        return this.parcelService.getDailyPackagesPerRegion(date);
-    }
-
-    public List<Region> getDeliveryRegions() {
-        return this.parcelService.getRegionsAsList();
-    }
-
-    public LinkedList<Vertex> getOptimalRouteBetween2Parcels(String date) {
-        var graph =  this.parcelService.getDailyPackagesPerRegion(date);
-        List<Vertex> vertices = graph.getVertices();
-        List<Edge> edges = graph.getEdges();
-        Dijkstra2 dijkstra = new Dijkstra2(vertices, edges);
-        dijkstra.execute(vertices.get(0));
-        return dijkstra.getPath(vertices.get(2));
+    private HashMap<Long, List<Parcel>> getParcelsPerCustomer(Collection<Parcel> parcels) {
+        return Searcher.getParcelsPerCustomer(parcels);
     }
 //
 //    private List<Parcel> getParcelsPerRegion(Collection<Parcel> parcels, Collection<Region> regions) {
