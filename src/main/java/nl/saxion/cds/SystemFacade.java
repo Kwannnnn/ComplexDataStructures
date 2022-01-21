@@ -2,15 +2,14 @@ package nl.saxion.cds;
 
 import nl.saxion.cds.client.ClientService;
 import nl.saxion.cds.exception.ParcelNotFoundException;
-import nl.saxion.cds.graph.Edge;
-import nl.saxion.cds.graph.UndirectedWeightedGraph;
-import nl.saxion.cds.graph.Vertex;
+import nl.saxion.cds.graph.*;
+import nl.saxion.cds.graph.algorithms.KruskalAlgo;
+import nl.saxion.cds.graph.algorithms.PrimAlgo;
 import nl.saxion.cds.parcel.Parcel;
 import nl.saxion.cds.parcel.ParcelService;
 import nl.saxion.cds.region.Coordinate;
 import nl.saxion.cds.region.Region;
 import nl.saxion.cds.region.RegionService;
-import nl.saxion.cds.tree.PackingBST;
 import nl.saxion.cds.util.Packer;
 import nl.saxion.cds.util.Searcher;
 import nl.saxion.cds.van.Van;
@@ -82,12 +81,28 @@ public class SystemFacade {
                 parcelsForRegion.add(parcel);
             }
         }
-        
+
         return Packer.packFirstFitDecreasing(parcelsForRegion);
     }
 
     public List<Edge> getOptimalRouteUsingPrim(Collection<Parcel> parcels) {
+        var graph = initializeGraph(parcels);
+
+        PrimAlgo primAlgo = new PrimAlgo(graph.getVertices(), graph.getEdges());
+        return primAlgo.execute();
+    }
+
+    public List<Edge> getOptimalRouteUsingKruskal(Collection<Parcel> parcels) {
+        var graph = initializeGraph(parcels);
+
+        KruskalAlgo kruskalAlgo = new KruskalAlgo(graph.getVertices(), graph.getEdges());
+        return kruskalAlgo.execute();
+    }
+
+
+    private UndirectedWeightedGraph initializeGraph(Collection<Parcel> parcels) {
         var graph = new UndirectedWeightedGraph();
+
         var vDC = new Vertex("DC", new Coordinate(375,375));
         graph.addVertex(vDC);
 
@@ -101,7 +116,7 @@ public class SystemFacade {
             }
         }
 
-        return graph.getEdges();
+        return graph;
     }
 
     public List<Region> getAllRegions() {

@@ -2,6 +2,8 @@ package nl.saxion.cds;
 
 import nl.saxion.app.SaxionApp;
 import nl.saxion.cds.exception.ParcelNotFoundException;
+import nl.saxion.cds.graph.Edge;
+import nl.saxion.cds.parcel.Parcel;
 import nl.saxion.cds.region.Coordinate;
 import nl.saxion.cds.region.Region;
 import nl.saxion.cds.tree.Node;
@@ -11,6 +13,7 @@ import java.time.Duration;
 import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
@@ -18,7 +21,7 @@ public class UI {
     public static final double SCALE = 0.5;
     public static final int VERTICAL_MARGIN = 37;
     public static final int HORIZONTAL_MARGIN = 10;
-    private static final int MENU_OPTIONS_COUNT = 6;
+    private static final int MENU_OPTIONS_COUNT = 7;
 
     private final int height;
     private final int width;
@@ -51,7 +54,8 @@ public class UI {
         SaxionApp.printLine("3: Find the status of a parcel using binary search");
         SaxionApp.printLine("4: Find the top 10 recipients");
         SaxionApp.printLine("5: Display delivery regions");
-        SaxionApp.printLine("6: Show van info (packing and route)");
+        SaxionApp.printLine("6: Show van info (packing and route) using Prim algorithm");
+        SaxionApp.printLine("7: Show van info (packing and route) using Kruskal algorithm");
     }
 
     // region user input helper methods
@@ -75,7 +79,7 @@ public class UI {
         } catch (DateTimeParseException e) {
             // invalid date. repeating the process
             SaxionApp.printLine("Invalid date", Color.PINK);
-            dateInput();
+            date = dateInput();
         }
 
         return date;
@@ -90,20 +94,25 @@ public class UI {
             case 3 -> handleGetParcelStatus(3);
             case 4 -> handleGetTop10Recipients();
             case 5 -> drawRegionsMap();
-            case 6 -> handleShowVanInfo();
-//            case 5 -> handleGetOptimalRouteBetween2Parcels();
+            case 6 -> handleShowVanInfo(6);
+            case 7 -> handleShowVanInfo(7);
 
             case 0 -> this.isRunning = false;
         }
     }
 
-    private void handleShowVanInfo() {
-        SaxionApp.print("Please select a date: ");
+    private void handleShowVanInfo(int choice) {
         String date = dateInput();
         SaxionApp.print("Please select a region: ");
         int region = SaxionApp.readInt();
 
+        // first pack the vans
+        // the time taken is measured
+        Instant startVanPack = Instant.now();
         var packedVans = this.controller.getLoadedVansForADayForARegion(date, region);
+        Instant endVanPack = Instant.now();
+        Duration packDuration = Duration.between(startVanPack, endVanPack);
+
 
         if (packedVans.size() == 0) {
             System.out.println("This region does not have any package to deliver on " + date);
@@ -119,35 +128,58 @@ public class UI {
 
         var vanParcels = packedVans.get(vanIndex - 1).getPlacement().toList();
 
+        // draw the vans
         SaxionApp.clear();
         SaxionApp.printLine("Van: " + vanIndex + " - Region: " + region + " - Date: " + date);
+        drawVans(vanParcels);
+        SaxionApp.printLine("Time taken for packing: " + packDuration.toMillis() + " milliseconds");
+
+        // get and draw route for the selected van
+        List<Edge> routeEdges = new ArrayList<>();
+
+        Instant startGetRoute = Instant.now();
+        switch (choice) {
+            case 6 -> routeEdges = this.controller.getOptimalRouteUsingPrim(vanParcels.stream().map(Node::getData).filter(Objects::nonNull).toList());
+            case 7 -> routeEdges = this.controller.getOptimalRouteUsingKruskal(vanParcels.stream().map(Node::getData).filter(Objects::nonNull).toList());
+        }
+        Instant endGetRoute = Instant.now();
+        Duration getRouteDuration = Duration.between(startGetRoute, endGetRoute);
+
+        drawRoutes(routeEdges);
+        SaxionApp.printLine("Time taken to get routes: " + getRouteDuration.toMillis() + " milliseconds");
+
+        SaxionApp.pause();
+        SaxionApp.clear();
+    }
+
+    private void drawRoutes(List<Edge> routeEdges) {
+        int marginX = 30;
+        int marginY = 150;
+
+        for (var edge : routeEdges) {
+            SaxionApp.drawPoint((int) edge.getSource().getAddress().getX() + marginX, (int) edge.getSource().getAddress().getY() + marginY, 5);
+            SaxionApp.drawText(edge.getSource().getLabel() ,(int) edge.getSource().getAddress().getX() + marginX, (int) edge.getSource().getAddress().getY() + marginY, 15);
+            SaxionApp.drawText(edge.getDestination().getLabel() ,(int) edge.getDestination().getAddress().getX() + marginX, (int) edge.getDestination().getAddress().getY() + marginY, 15);
+            SaxionApp.drawLine((int) edge.getDestination().getAddress().getX() + marginX, (int) edge.getDestination().getAddress().getY() + marginY, (int) edge.getSource().getAddress().getX() + marginX, (int) edge.getSource().getAddress().getY() + marginY);
+            SaxionApp.drawPoint((int) edge.getDestination().getAddress().getX() + marginX, (int) edge.getDestination().getAddress().getY() + marginY, 5);
+        }
+    }
+
+    private void drawVans(List<Node<Parcel>> vanParcels) {
+        int marginX = 20;
+        int marginY = 40;
+
         SaxionApp.setFill(Color.BLACK);
-        SaxionApp.drawRectangle(HORIZONTAL_MARGIN, VERTICAL_MARGIN, 200, 80);
+        SaxionApp.drawRectangle(HORIZONTAL_MARGIN + marginX, VERTICAL_MARGIN + marginY, 200, 80);
         // draw the parcels
         for (var parcel : vanParcels) {
             if (parcel.getData() != null) {
                 var color = SaxionApp.getRandomColor();
                 SaxionApp.setFill(color);
-                SaxionApp.drawRectangle(parcel.getX() + HORIZONTAL_MARGIN, parcel.getY() + VERTICAL_MARGIN,
+                SaxionApp.drawRectangle(parcel.getX() + HORIZONTAL_MARGIN + marginX, parcel.getY() + VERTICAL_MARGIN + marginY,
                         parcel.getData().getWidth(), parcel.getData().getLength());
             }
         }
-
-        var routeEdges = this.controller.getOptimalRouteUsingPrim(vanParcels.stream().map(Node::getData).filter(Objects::nonNull).toList());
-
-        for (var edge : routeEdges) {
-            System.out.println(edge.getSource().getLabel() + "--" + edge.getWeight() + "-->" + edge.getDestination().getLabel());
-            SaxionApp.drawPoint((int) edge.getSource().getAddress().getX(), (int) edge.getSource().getAddress().getY(), 5);
-            SaxionApp.drawText(edge.getSource().getLabel() ,(int) edge.getSource().getAddress().getX(), (int) edge.getSource().getAddress().getY(), 20);
-            SaxionApp.drawText(edge.getDestination().getLabel() ,(int) edge.getDestination().getAddress().getX(), (int) edge.getDestination().getAddress().getY(), 20);
-            SaxionApp.drawLine((int) edge.getDestination().getAddress().getX(), (int) edge.getDestination().getAddress().getY(), (int) edge.getSource().getAddress().getX(), (int) edge.getSource().getAddress().getY());
-            SaxionApp.drawPoint((int) edge.getDestination().getAddress().getX(), (int) edge.getDestination().getAddress().getY(), 5);
-
-        }
-
-
-        SaxionApp.pause();
-        SaxionApp.clear();
     }
 
     private void drawRegionsMap() {
@@ -206,64 +238,6 @@ public class UI {
                 (int) (margin.getY() + 10 + this.controller.getRegionMapBottomRight().getY()),
                 20);
     }
-//
-//    private void handleGetOptimalRouteBetween2Parcels() {
-//        String date = dateInput();
-//        SaxionApp.clear();
-//
-//        Vertex prevV = null;
-//
-//        var ass = this.facade.getOptimalRouteBetween2Parcels(date);
-//        for (Vertex v : ass) {
-//            SaxionApp.drawPoint((int) v.getAddress().getX(), (int) v.getAddress().getY());
-//            if (prevV != null) {
-//                SaxionApp.drawLine((int) v.getAddress().getX(), (int) v.getAddress().getY(), (int) prevV.getAddress().getX(), (int) prevV.getAddress().getY());
-//            }
-//            prevV = v;
-//        }
-//
-//        SaxionApp.pause();
-//    }
-//
-////    region option handler methods
-//    private void handleGetOptimalRoutesPerRegion() {
-//        String date = dateInput();
-//        SaxionApp.clear();
-//        var connections = this.facade.getOptimalRoutePerRegion(date).getEdges();
-////        for (var edge : connections) {
-//            for (var bs : connections) {
-//                SaxionApp.printLine(bs.getSource().getLabel() + " ---" + bs.getWeight() + "-->" + bs.getDestination().getLabel());
-//            }
-////        }
-//    }
-//
-//    private void handlePackMostPackagesPerVan() {
-//        String date = dateInput();
-//
-//        var vans = this.facade.getAllPackages(date);
-//        int vanCount = 0;
-//
-//        SaxionApp.clear();
-//        // drawing the vans
-//        SaxionApp.setBorderColor(Color.white);
-//
-//        for (var vanParcels : vans) {
-//            SaxionApp.printLine("Van " + ++vanCount);
-//            SaxionApp.setFill(Color.BLACK);
-//            SaxionApp.drawRectangle(HORIZONTAL_MARGIN, VERTICAL_MARGIN, 580, 300);
-//            // draw the parcels
-//            for (var parcel : vanParcels) {
-//                if (parcel.getData() != null) {
-//                    var color = SaxionApp.getRandomColor();
-//                    SaxionApp.setFill(color);
-//                    SaxionApp.drawRectangle(parcel.getX() + HORIZONTAL_MARGIN, parcel.getY() + VERTICAL_MARGIN,
-//                            parcel.getData().getWidth(), parcel.getData().getLength());
-//                }
-//            }
-//            SaxionApp.pause();
-//            SaxionApp.clear();
-//        }
-//    }
 
     private void handleGetTop10Recipients() {
         List<String> top10Recipients = this.controller.getTop10Recipients();

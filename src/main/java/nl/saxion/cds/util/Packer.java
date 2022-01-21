@@ -3,8 +3,6 @@ package nl.saxion.cds.util;
 import nl.saxion.cds.parcel.Parcel;
 
 import nl.saxion.cds.comparator.AreaDescComparator;
-import nl.saxion.cds.tree.PackingBST;
-import nl.saxion.cds.util.Sorter;
 import nl.saxion.cds.van.Van;
 
 import java.util.ArrayList;

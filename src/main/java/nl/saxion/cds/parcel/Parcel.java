@@ -7,10 +7,8 @@ public class Parcel implements Comparable<Parcel> {
     private final Long id;
     private int length;
     private int width;
-    private int height;
-    private double weight;
-    private String entryDate;
-    private ParcelStatus parcelStatus;
+    private final String entryDate;
+    private final ParcelStatus parcelStatus;
     private final Client client;
 
 
@@ -19,8 +17,6 @@ public class Parcel implements Comparable<Parcel> {
         this.id = id;
         this.length = length;
         this.width = width;
-        this.height = height;
-        this.weight = weight;
         this.entryDate = entryDate;
         this.parcelStatus = ParcelStatus.DC;
         this.client = client;
@@ -32,7 +28,6 @@ public class Parcel implements Comparable<Parcel> {
         Arrays.sort(dimensions);
         this.width = dimensions[0];
         this.length = dimensions[1];
-        this.height = dimensions[2];
     }
 
     /**
@@ -64,10 +59,6 @@ public class Parcel implements Comparable<Parcel> {
 
     public int getWidth() {
         return this.width;
-    }
-
-    public int getHeight() {
-        return this.height;
     }
 
     public int getMinArea() {

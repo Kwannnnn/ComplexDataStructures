@@ -4,8 +4,8 @@ import nl.saxion.cds.client.ClientDAO;
 import nl.saxion.cds.exception.RecordNotLoadedException;
 
 public class CreateParcelService {
-    private ClientDAO clientDAO;
-    private ParcelDAO parcelDAO;
+    private final ClientDAO clientDAO;
+    private final ParcelDAO parcelDAO;
 
     public CreateParcelService(ClientDAO clientDAO, ParcelDAO parcelDAO) {
         this.clientDAO = clientDAO;

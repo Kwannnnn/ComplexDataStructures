@@ -4,14 +4,12 @@ import nl.saxion.cds.region.Coordinate;
 
 public class Client implements Comparable<Client> {
     private final Long id;
-    private String name;
-    private String initials;
-    private Coordinate address;
+    private final String name;
+    private final Coordinate address;
 
     public Client(Long id, String name, String initials, Coordinate address) {
         this.id = id;
         this.name = name;
-        this.initials = initials;
         this.address = address;
     }
 
@@ -27,8 +25,6 @@ public class Client implements Comparable<Client> {
     @Override
     public String toString() {
         return name;
-//        return name + " " + address;
-//        return "Client " + id;
     }
 
     /**

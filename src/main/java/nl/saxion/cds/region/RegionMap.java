@@ -1,9 +1,5 @@
 package nl.saxion.cds.region;
 
-import nl.saxion.cds.parcel.Parcel;
-
-import java.util.List;
-
 public class RegionMap {
     private final int x1;
     private final int y1;
