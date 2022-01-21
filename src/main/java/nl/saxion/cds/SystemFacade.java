@@ -2,6 +2,7 @@ package nl.saxion.cds;
 
 import nl.saxion.cds.client.ClientService;
 import nl.saxion.cds.exception.ParcelNotFoundException;
+import nl.saxion.cds.graph.Edge;
 import nl.saxion.cds.graph.UndirectedWeightedGraph;
 import nl.saxion.cds.graph.Vertex;
 import nl.saxion.cds.parcel.Parcel;
@@ -83,6 +84,24 @@ public class SystemFacade {
         }
         
         return Packer.packFirstFitDecreasing(parcelsForRegion);
+    }
+
+    public List<Edge> getOptimalRouteUsingPrim(Collection<Parcel> parcels) {
+        var graph = new UndirectedWeightedGraph();
+        var vDC = new Vertex("DC", new Coordinate(375,375));
+        graph.addVertex(vDC);
+
+        for (var parcel : parcels) {
+            var v = new Vertex(parcel.getId().toString(), parcel.getClient().getAddress());
+            graph.addVertex(v);
+            for (var vertex : graph.getVertices()) {
+                if (!v.equals(vertex)) {
+                    graph.addEdge(vertex, v);
+                }
+            }
+        }
+
+        return graph.getEdges();
     }
 
     public List<Region> getAllRegions() {

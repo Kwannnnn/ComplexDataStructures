@@ -4,6 +4,7 @@ import nl.saxion.app.SaxionApp;
 import nl.saxion.cds.exception.ParcelNotFoundException;
 import nl.saxion.cds.region.Coordinate;
 import nl.saxion.cds.region.Region;
+import nl.saxion.cds.tree.Node;
 
 import java.awt.*;
 import java.time.Duration;
@@ -11,6 +12,7 @@ import java.time.Instant;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.List;
+import java.util.Objects;
 
 public class UI {
     public static final double SCALE = 0.5;
@@ -32,12 +34,15 @@ public class UI {
     public void start() {
         while (this.isRunning) {
             showMenu();
-
-            int choice = inputOption(MENU_OPTIONS_COUNT);
-            SaxionApp.printLine();
-            handleInputOption(choice);
-            SaxionApp.printLine();
+            takeInput();
         }
+    }
+
+    private void takeInput() {
+        int choice = inputOption(MENU_OPTIONS_COUNT);
+        SaxionApp.printLine();
+        handleInputOption(choice);
+        SaxionApp.printLine();
     }
 
     private void showMenu() {
@@ -127,6 +132,19 @@ public class UI {
                         parcel.getData().getWidth(), parcel.getData().getLength());
             }
         }
+
+        var routeEdges = this.controller.getOptimalRouteUsingPrim(vanParcels.stream().map(Node::getData).filter(Objects::nonNull).toList());
+
+        for (var edge : routeEdges) {
+            System.out.println(edge.getSource().getLabel() + "--" + edge.getWeight() + "-->" + edge.getDestination().getLabel());
+            SaxionApp.drawPoint((int) edge.getSource().getAddress().getX(), (int) edge.getSource().getAddress().getY(), 5);
+            SaxionApp.drawText(edge.getSource().getLabel() ,(int) edge.getSource().getAddress().getX(), (int) edge.getSource().getAddress().getY(), 20);
+            SaxionApp.drawText(edge.getDestination().getLabel() ,(int) edge.getDestination().getAddress().getX(), (int) edge.getDestination().getAddress().getY(), 20);
+            SaxionApp.drawLine((int) edge.getDestination().getAddress().getX(), (int) edge.getDestination().getAddress().getY(), (int) edge.getSource().getAddress().getX(), (int) edge.getSource().getAddress().getY());
+            SaxionApp.drawPoint((int) edge.getDestination().getAddress().getX(), (int) edge.getDestination().getAddress().getY(), 5);
+
+        }
+
 
         SaxionApp.pause();
         SaxionApp.clear();
