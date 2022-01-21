@@ -14,9 +14,8 @@ public class ClientDAO implements DataObject<Client> {
     }
 
     @Override
-    public Client get(Long id) {
-        var client = Optional.ofNullable(this.clients.get(id));
-        return client.orElse(null);
+    public Optional<Client> get(Long id) {
+        return Optional.ofNullable(this.clients.get(id));
     }
 
     @Override

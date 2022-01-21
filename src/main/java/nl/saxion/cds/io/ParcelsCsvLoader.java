@@ -1,6 +1,6 @@
 package nl.saxion.cds.io;
 
-import nl.saxion.cds.io.CsvFileLoader;
+import nl.saxion.cds.exception.RecordNotLoadedException;
 import nl.saxion.cds.parcel.CreateParcelService;
 
 public class ParcelsCsvLoader extends CsvFileLoader {
@@ -12,7 +12,7 @@ public class ParcelsCsvLoader extends CsvFileLoader {
     }
 
     @Override
-    protected void save(String[] args) {
+    protected void save(String[] args) throws RecordNotLoadedException {
         this.service.createParcel(
                 Long.parseLong(args[0]),
                 Integer.parseInt(args[1]),

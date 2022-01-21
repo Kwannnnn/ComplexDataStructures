@@ -44,13 +44,27 @@ public class Searcher {
         return result;
     }
 
+    public static HashMap<Long, List<Parcel>> getParcelsPerCustomer(Collection<Parcel> parcels) {
+        var result = new HashMap<Long, List<Parcel>>();
+
+        for (var parcel : parcels) {
+            var customerID = parcel.getClient().getId();
+            if (!result.containsKey(customerID)) {
+                result.put(customerID, new ArrayList<>());
+            }
+            result.get(customerID).add(parcel);
+        }
+
+        return result;
+    }
+
     /**
      * Finds the status of a parcel by ID in a sequential manner.
      * @param parcels the list of parcel to search in
      * @param id the ID of the Parcel to look for
      * @return the ParcelStatus if found, or null if not found.
      */
-    public static ParcelStatus getParcelStatusByIDSequentially(List<Parcel> parcels, Long id) {
+    public static ParcelStatus getParcelStatusByIDSequentially(List<Parcel> parcels, Long id) throws ParcelNotFoundException {
         for (var parcel : parcels) {
             if (parcel.getId().equals(id))
                 return parcel.getParcelStatus();
@@ -65,7 +79,7 @@ public class Searcher {
      * @param id the ID of the Parcel to look for
      * @return the ParcelStatus if found, or null if not found.
      */
-    public static ParcelStatus getParcelStatusByIDBinary(List<Parcel> parcels, Long id) {
+    public static ParcelStatus getParcelStatusByIDBinary(List<Parcel> parcels, Long id) throws ParcelNotFoundException {
         int begin = 0;
         int end = parcels.size();
 

@@ -51,17 +51,6 @@ public class RegionMap {
         }
     }
 
-    public void distributeParcels(List<Parcel> parcels) {
-        for (var parcel : parcels) {
-            for (var region : this.regions) {
-                if (region.addressInRange(parcel.getClient().getAddress())) {
-                    region.addParcel(parcel);
-                    break;
-                }
-            }
-        }
-    }
-
     public Region[] getRegions() {
         return regions;
     }

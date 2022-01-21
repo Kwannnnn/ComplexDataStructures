@@ -8,33 +8,34 @@ import nl.saxion.cds.util.Sorter;
 import nl.saxion.cds.van.Van;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 
 public class Packer {
-    public static final int DEFAULT_VAN_LENGTH = 580;
-    public static final int DEFAULT_VAN_WIDTH = 300;
+    public static final int DEFAULT_VAN_LENGTH = 200;
+    public static final int DEFAULT_VAN_WIDTH = 80;
 
-    public static List<PackingBST> packFirstFitDecreasing(List<Parcel> parcels) {
-        var result = new ArrayList<PackingBST>();
+    public static List<Van> packFirstFitDecreasing(Collection<Parcel> parcels) {
+        var result = new ArrayList<Van>();
 
         var parcelsCopy = new ArrayList<>(parcels);
 
         while (parcelsCopy.size() > 0) {
             Van van = new Van(DEFAULT_VAN_LENGTH, DEFAULT_VAN_WIDTH);
-            var tree = new PackingBST(van.getLength(), van.getWidth());
+            var placementBinarySearchTree = van.getPlacement();
 
             // assuming that each parcel can fit into the van
             Sorter.sort(parcelsCopy, new AreaDescComparator());
 
             Iterator<Parcel> iterator = parcelsCopy.iterator();
             while (iterator.hasNext()) {
-                if (tree.insert(iterator.next())) {
+                if (placementBinarySearchTree.insert(iterator.next())) {
                     iterator.remove();
                 }
             }
 
-            result.add(tree);
+            result.add(van);
         }
 
         return result;

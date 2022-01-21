@@ -6,16 +6,13 @@ import nl.saxion.cds.util.Searcher;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Optional;
 
 public class ClientService {
     private final ClientDAO clientDAO;
 
     public ClientService(ClientDAO clientDAO) {
         this.clientDAO = clientDAO;
-    }
-
-    public Client getClient(Long id) {
-        return this.clientDAO.get(id);
     }
 
     public List<String> getTop10Recipients(HashMap<Long, List<Parcel>> parcelsPerCustomer) {

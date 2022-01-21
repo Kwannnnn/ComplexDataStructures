@@ -11,19 +11,19 @@ public class Region {
     private final Coordinate bottomLeft;
     private final Coordinate bottomRight;
 
-    private List<Parcel> dailyPackages;
+//    private List<Parcel> dailyPackages;
 
     public Region(Coordinate topLeft, Coordinate topRight, Coordinate bottomLeft, Coordinate bottomRight) {
         this.topLeft = topLeft;
         this.topRight = topRight;
         this.bottomLeft = bottomLeft;
         this.bottomRight = bottomRight;
-        this.dailyPackages = new ArrayList<>();
+//        this.dailyPackages = new ArrayList<>();
     }
 
-    public void addParcel(Parcel parcel) {
-        this.dailyPackages.add(parcel);
-    }
+//    public void addParcel(Parcel parcel) {
+//        this.dailyPackages.add(parcel);
+//    }
 
     public Coordinate getTopLeft() {
         return topLeft;

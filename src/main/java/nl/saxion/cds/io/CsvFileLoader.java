@@ -1,5 +1,7 @@
 package nl.saxion.cds.io;
 
+import nl.saxion.cds.exception.RecordNotLoadedException;
+
 import java.io.BufferedReader;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -14,7 +16,7 @@ public abstract class CsvFileLoader implements FileLoader {
     }
 
     @Override
-    public final void loadFile() throws IOException {
+    public final void loadFile() throws IOException, RecordNotLoadedException {
         var reader = new BufferedReader(new FileReader(getResourceFile()));
 
         String currentLine = reader.readLine(); // Skip header line
@@ -24,7 +26,7 @@ public abstract class CsvFileLoader implements FileLoader {
         }
     }
 
-    protected abstract void save(String[] args);
+    protected abstract void save(String[] args) throws RecordNotLoadedException;
 
     private String getResourceFile() throws FileNotFoundException {
         URL printResource = getClass().getResource("/" + this.filename);
