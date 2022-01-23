@@ -5,7 +5,7 @@ import nl.saxion.cds.parcel.Parcel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PackingBST implements BinarySearchTree<Parcel> {
+public class    PackingBST implements BinarySearchTree<Parcel> {
 
     private final Node<Parcel> root;
 

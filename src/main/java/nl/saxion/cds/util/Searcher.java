@@ -6,10 +6,7 @@ import nl.saxion.cds.parcel.ParcelStatus;
 
 import java.util.*;
 
-public class Searcher {
-    private Searcher() {
-
-    }
+public final class Searcher {
 
     public static <T extends Comparable<T>> PriorityQueue<T> findTopK(Collection<T> list, int k, Comparator<T> comparator) {
         var priorityQueue = new PriorityQueue<T>();
@@ -17,7 +14,7 @@ public class Searcher {
             if (priorityQueue.size() < k) {
                 priorityQueue.add(element);
             } else {
-                assert priorityQueue.peek() != null;
+                assert priorityQueue.peek() != null : "priorityQueue should not be empty";
                 // smallest element of the priority queue < the current element of the list
                 if (comparator.compare(priorityQueue.peek(), element) < 0) {
                     priorityQueue.poll();
@@ -45,6 +42,12 @@ public class Searcher {
 
         return result;
     }
+
+    /**
+     * Finds all parcels that belong to a specific customer, for every customer
+     * @param parcels the list of parcels to search in
+     * @return a Hashmap whose keys are the customers' id and values their list of parcels
+     */
 
     public static HashMap<Long, List<Parcel>> getParcelsPerCustomer(Collection<Parcel> parcels) {
         var result = new HashMap<Long, List<Parcel>>();

@@ -64,13 +64,13 @@ public class SystemFacade {
         };
     }
 
-    // Option 2 of the menu
+    // Option 4 of the menu
     public List<String> getTop10Recipients() {
         var parcelsPerCustomer = getParcelsPerCustomer(this.parcelService.getAllParcels());
         return this.clientService.getTop10Recipients(parcelsPerCustomer);
     }
 
-    //
+    // Option 6 & 7 of the menu
     public List<Van> getLoadedVansForADayForARegion(String date, int regionIndex) {
         var parcelsForDate = this.parcelService.getParcelsForADate(date);
         var region = this.regionService.getAllRegions().get(regionIndex - 1);
@@ -85,10 +85,11 @@ public class SystemFacade {
         return Packer.packFirstFitDecreasing(parcelsForRegion);
     }
 
+    //
     public List<Edge> getOptimalRouteUsingPrim(Collection<Parcel> parcels) {
         var graph = initializeGraph(parcels);
 
-        PrimAlgo primAlgo = new PrimAlgo(graph.getVertices(), graph.getEdges());
+        PrimAlgo primAlgo = new PrimAlgo(graph.getVertices());
         return primAlgo.execute();
     }
 

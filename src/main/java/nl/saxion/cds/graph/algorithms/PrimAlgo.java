@@ -10,9 +10,8 @@ public class PrimAlgo {
     private final List<Vertex> vertices;
     private final List<Edge> edges = new ArrayList<>();
 
-    public PrimAlgo(List<Vertex> vertices, List<Edge> edges) {
+    public PrimAlgo(List<Vertex> vertices) {
         this.vertices = vertices;
-//        this.edges = edges;
     }
 
     public List<Edge> execute() {

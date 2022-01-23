@@ -1,10 +1,5 @@
 package nl.saxion.cds.region;
 
-import nl.saxion.cds.parcel.Parcel;
-
-import java.util.ArrayList;
-import java.util.List;
-
 public class Region {
     private final Coordinate topLeft;
     private final Coordinate topRight;
