@@ -150,66 +150,7 @@ public class SystemFacade {
         return this.regionService.getRegionMapBottomRight();
     }
 
-//    public List<List<Node<Parcel>>> getAllPackages(String date) {
-//        return this.parcelService.getPackages(date);
-//    }
-//
-
-//
-//    public UndirectedWeightedGraph getOptimalRoutePerRegion(String date) {
-//        return this.parcelService.getDailyPackagesPerRegion(date);
-//    }
-//
-//    public List<Region> getDeliveryRegions() {
-//        return this.parcelService.getRegionsAsList();
-//    }
-//
-//    public LinkedList<Vertex> getOptimalRouteBetween2Parcels(String date) {
-//        var graph =  this.parcelService.getDailyPackagesPerRegion(date);
-//        List<Vertex> vertices = graph.getVertices();
-//        List<Edge> edges = graph.getEdges();
-//        Dijkstra2 dijkstra = new Dijkstra2(vertices, edges);
-//        dijkstra.execute(vertices.get(0));
-//        return dijkstra.getPath(vertices.get(2));
-//    }
-//
-
     private HashMap<Long, List<Parcel>> getParcelsPerCustomer(Collection<Parcel> parcels) {
         return Searcher.getParcelsPerCustomer(parcels);
     }
-//
-//    private List<Parcel> getParcelsPerRegion(Collection<Parcel> parcels, Collection<Region> regions) {
-//        var result = new ArrayList<List<Parcel>>();
-//
-//        for (var parcel : parcels) {
-//            for (var region : regions) {
-//                if (region.addressInRange(parcel.getClient().getAddress())) {
-//                    regionParcels.add(parcel);
-//                }
-//            }
-//
-//        }
-//    }
-//
-//    public void distributeParcels(List<Parcel> parcels) {
-//        for (var parcel : parcels) {
-//            for (var region : this.regions) {
-//                if (region.addressInRange(parcel.getClient().getAddress())) {
-//                    region.addParcel(parcel);
-//                    break;
-//                }
-//            }
-//        }
-//    }
-//
-//    public List<List<Parcel>> getDailyPackagesPerRegion(Collection<Parcel> parcels, Collection<Region>) {
-//        var result = new ArrayList<List<Parcel>>();
-//        this.regionMap.distributeParcels(getParcelsForADay(date));
-//
-//        for (var region : this.regionMap.getRegions()) {
-//            result.add(region.getDailyPackages());
-//        }
-//
-//        return result;
-//    }
 }

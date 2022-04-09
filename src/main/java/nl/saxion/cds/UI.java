@@ -70,7 +70,7 @@ public class UI {
     }
 
     private String dateInput() {
-        SaxionApp.print("Please enter a valid date in the this format (d-M-yyyy): ");
+        SaxionApp.print("Please enter a valid date in this format (DD-MM-YYYY): ");
         String date = SaxionApp.readString();
         DateTimeFormatter dtf = DateTimeFormatter.ofPattern("d-M-yyyy");
         try {

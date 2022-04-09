@@ -20,10 +20,10 @@ public class CreateParcelService {
                     + clientID + " because client does not exist");
         }
 
-        assert length < 0 : "Length must not be negative";
-        assert breadth < 0 : "Breadth must not be negative";
-        assert height < 0 : "height must not be negative";
-        assert weight < 0 : "weight must not be negative";
+        assert length > 0 : "Length must not be negative";
+        assert breadth > 0 : "Breadth must not be negative";
+        assert height > 0 : "height must not be negative";
+        assert weight > 0 : "weight must not be negative";
 
         var client = queryResult.get();
         var parcel = new Parcel(id, length, breadth, height, weight, entryDate, client);
