@@ -26,6 +26,8 @@ public class UndirectedWeightedGraph implements Graph {
         int weight = (int) (Math.abs(src.getAddress().getX() - dest.getAddress().getX())
                 + Math.abs(src.getAddress().getY() - dest.getAddress().getY()));
 
+        assert weight < 0 : "Weight must not be negative";
+
         var edge = new Edge(src, dest, weight);
         this.edges.add(edge);
     }

@@ -3,10 +3,10 @@ package nl.saxion.cds.van;
 import nl.saxion.cds.tree.PackingBST;
 
 public class Van {
-    private int length;
-    private int width;
+    private final int length;
+    private final int width;
     private int availableArea;
-    private PackingBST placement;
+    private final PackingBST placement;
 
     public Van(int length, int width) {
         this.length = length;

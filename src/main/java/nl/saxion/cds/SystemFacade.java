@@ -75,6 +75,8 @@ public class SystemFacade {
         var parcelsForDate = this.parcelService.getParcelsForADate(date);
         var region = this.regionService.getAllRegions().get(regionIndex - 1);
 
+        assert region != null : "Region should not be null, otherwise an exception would have been thrown";
+
         var parcelsForRegion = new ArrayList<Parcel>();
         for (var parcel : parcelsForDate) {
             if (region.addressInRange(parcel.getClient().getAddress())) {

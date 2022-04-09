@@ -53,6 +53,9 @@ public final class Searcher {
         var result = new HashMap<Long, List<Parcel>>();
 
         for (var parcel : parcels) {
+
+            assert parcel.getClient() != null : "Parcel should always belong to a client";
+
             var customerID = parcel.getClient().getId();
             if (!result.containsKey(customerID)) {
                 result.put(customerID, new ArrayList<>());
